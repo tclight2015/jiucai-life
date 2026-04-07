@@ -13,6 +13,7 @@ import {
   User,
   BookOpen,
   Coins,
+  Users,
   ScrollText,
 } from "lucide-react";
 
@@ -45,6 +46,7 @@ const modules = [
   { title: "個人資訊", icon: User, href: "/profile" },
   { title: "抽獎規則", icon: BookOpen, href: "/rules" },
   { title: "代幣資訊", icon: Coins, href: "/token" },
+  { title: "邀請朋友", icon: Users, href: "/invite" },
   { title: "韭菜宣言", icon: ScrollText, href: "/about" },
 ];
 

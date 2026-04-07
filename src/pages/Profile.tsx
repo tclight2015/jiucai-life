@@ -14,7 +14,8 @@ const mockProfile = {
   timeMultiplier: "1.5x",
   totalPrizeUsdt: 12,
   totalPrizeJiucai: 250000,
-  referrals: 3,
+  referrals: 3,         // 邀請總人數
+  referralSuccess: 2,   // 成功邀請（被邀請人已完成索幣）
 };
 
 const mockCards = [
@@ -80,8 +81,9 @@ const Profile = () => {
             <p className="font-semibold text-foreground">{p.totalPrizeJiucai.toLocaleString()}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">邀請人數</p>
-            <p className="font-semibold text-foreground">{p.referrals} 人</p>
+            <p className="text-xs text-muted-foreground">成功邀請</p>
+            <p className="font-semibold text-primary">{p.referralSuccess} 人</p>
+            <p className="text-xs text-muted-foreground">共邀請 {p.referrals} 人</p>
           </div>
         </div>
       </div>

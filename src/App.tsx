@@ -18,6 +18,7 @@ const Recovery   = lazy(() => import("./pages/Recovery"));
 const Chat       = lazy(() => import("./pages/Chat"));
 const Leaderboard = lazy(() => import("./pages/Leaderboard"));
 const Token      = lazy(() => import("./pages/Token"));
+const Invite     = lazy(() => import("./pages/Invite"));
 const NotFound   = lazy(() => import("./pages/NotFound"));
 
 const PageLoader = () => (
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/chat" element={<Chat />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/token" element={<Token />} />
+            <Route path="/invite" element={<Invite />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

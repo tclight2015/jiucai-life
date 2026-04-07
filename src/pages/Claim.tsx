@@ -2,6 +2,7 @@ import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const tiers = [
   { range: "損失 $200 以下", reward: "50,000 JIUCAI", note: "截圖一張" },
@@ -22,6 +23,9 @@ const stepLabels: Record<Step, string> = {
 const stepOrder: Step[] = ["uploading", "reviewing", "sending", "done"];
 
 const Claim = () => {
+  const [searchParams] = useSearchParams();
+  const refWallet = searchParams.get("ref") ?? "";  // 邀請人錢包地址
+
   const [file, setFile] = useState<File | null>(null);
   const [wallet, setWallet] = useState("");
   const [step, setStep] = useState<Step>("idle");
@@ -39,6 +43,9 @@ const Claim = () => {
 
   const handleSubmit = () => {
     if (!file || !wallet) return;
+    // TODO: 提交時將 refWallet 一併送後端記錄邀請關係
+    // payload: { wallet, refWallet, file }
+    console.log("[Claim] ref:", refWallet || "direct");
     let idx = 0;
     setStep(stepOrder[idx]);
     const tick = () => {
@@ -69,6 +76,13 @@ const Claim = () => {
           ))}
         </div>
       </div>
+
+      {/* Referral banner */}
+      {refWallet && (
+        <div className="rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 mb-4 text-xs text-muted-foreground">
+          🎉 你透過朋友邀請連結來到這裡，索幣成功後將自動記錄邀請關係
+        </div>
+      )}
 
       {/* Upload form */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
