@@ -41,4 +41,16 @@
 
 ---
 
+## 待辦：PWA App Icon
+
+`public/manifest.json` 目前只有 48x48 favicon，手機加入主畫面後 icon 會模糊。
+需提供品牌 icon 圖後，新增以下兩個檔案：
+
+- `public/icon-192.png` — 192×192px
+- `public/icon-512.png` — 512×512px（建議有 maskable 版本）
+
+完成後在 manifest.json 補回對應的 icons 陣列項目即可。
+
+---
+
 *此備忘由 Claude Code 於 2026-04-07 建立。觸發條件：獎金池累計達 $10,000 USDT 時，提醒執行升級。*
