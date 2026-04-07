@@ -50,7 +50,7 @@ const modules = [
 
 const Index = () => {
   const navigate = useNavigate();
-  const { usdt, jiucai } = usePoolData();
+  const { usdt, jiucai, isLoading } = usePoolData();
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
@@ -72,7 +72,7 @@ const Index = () => {
 
       {/* Coin pile */}
       <div className="flex justify-center mt-4 md:mt-8 relative z-10">
-        <CoinPile amountU={usdt} amountJiucai={jiucai} />
+        <CoinPile amountU={usdt} amountJiucai={jiucai} isLoading={isLoading} />
       </div>
 
       {/* Module cards */}

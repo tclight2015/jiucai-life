@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import coinPileImg from "@/assets/coin-pile.png";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CoinPileProps {
   amountU: number;
   amountJiucai: number;
+  isLoading?: boolean;
 }
 
-const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
+const CoinPile = ({ amountU, amountJiucai, isLoading }: CoinPileProps) => {
   const [displayU, setDisplayU] = useState(0);
   const [displayJiucai, setDisplayJiucai] = useState(0);
 
@@ -49,17 +51,24 @@ const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
 
       <div className="mt-4 text-center">
         <p className="text-sm md:text-base text-muted-foreground mb-1">目前累計獎金</p>
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
-          <span className="coin-amount">
-            <span className="coin-number">{displayU.toLocaleString()}</span>
-            <span className="coin-unit">U</span>
-          </span>
-          <span className="text-muted-foreground font-light">·</span>
-          <span className="coin-amount">
-            <span className="coin-number">{displayJiucai.toLocaleString()}</span>
-            <span className="coin-unit">JIUCAI</span>
-          </span>
-        </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center gap-3">
+            <Skeleton className="h-8 w-28 rounded-lg" />
+            <Skeleton className="h-8 w-32 rounded-lg" />
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
+            <span className="coin-amount">
+              <span className="coin-number">{displayU.toLocaleString()}</span>
+              <span className="coin-unit">U</span>
+            </span>
+            <span className="text-muted-foreground font-light">·</span>
+            <span className="coin-amount">
+              <span className="coin-number">{displayJiucai.toLocaleString()}</span>
+              <span className="coin-unit">JIUCAI</span>
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
