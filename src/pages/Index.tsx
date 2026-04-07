@@ -76,7 +76,7 @@ const Index = () => {
       </div>
 
       {/* Module cards */}
-      <div className="relative z-10 max-w-lg mx-auto px-4 mt-6 pb-20 space-y-3">
+      <div className="relative z-10 max-w-lg mx-auto px-4 mt-6 pb-28 space-y-3">
         {modules.map((mod) => {
           const Icon = mod.icon;
           return (

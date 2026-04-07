@@ -25,7 +25,7 @@ const PageLayout = ({ children, showBack = true }: PageLayoutProps) => {
           </button>
         )}
         {children}
-        <div className="h-16" />
+        <div className="h-24" />
       </div>
     </div>
   );
