@@ -123,6 +123,17 @@ export async function alertPoolThreshold(totalUsdt: number): Promise<void> {
   );
 }
 
+export async function alertFarcasterMilestone(memberCount: number): Promise<void> {
+  await admin(
+    `🎉 <b>[里程碑] 會員數突破 ${memberCount.toLocaleString()} 人！</b>\n\n` +
+    `社群規模已達關鍵門檻，建議開始經營 Farcaster：\n\n` +
+    `• 建立官方 Farcaster 帳號\n` +
+    `• 在 Warpcast 同步發布抽獎公告\n` +
+    `• 利用 Frames 做互動式索幣入口\n\n` +
+    `時間: ${ts()}`
+  );
+}
+
 export interface NoWinHolder {
   wallet: string;
   holdDays: number;
