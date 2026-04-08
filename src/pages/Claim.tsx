@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDailyQuota } from "@/hooks/useDailyQuota";
 
 const tiers = [
   { range: "損失 $200 以下", reward: "50,000 JIUCAI", note: "截圖一張" },
@@ -11,7 +12,7 @@ const tiers = [
   { range: "損失 $1,000 以上", reward: "500,000 JIUCAI", note: "截圖 + 地址 + 審核" },
 ];
 
-type Step = "idle" | "uploading" | "reviewing" | "sending" | "done";
+type Step = "idle" | "uploading" | "reviewing" | "sending" | "done" | "queued";
 const stepOrder: Step[] = ["uploading", "reviewing", "sending", "done"];
 
 const Claim = () => {
@@ -24,6 +25,7 @@ const Claim = () => {
   const [step, setStep] = useState<Step>("idle");
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { isOverQuota, estimatedDays, recordClaim } = useDailyQuota();
 
   const handleFile = (f: File) => setFile(f);
   const handleDrop = (e: React.DragEvent) => {
@@ -39,11 +41,17 @@ const Claim = () => {
     reviewing: t("claim.steps.reviewing"),
     sending: t("claim.steps.sending"),
     done: t("claim.steps.done"),
+    queued: "",
   };
 
   const handleSubmit = () => {
     if (!file || !wallet) return;
     console.log("[Claim] ref:", refWallet || "direct");
+    recordClaim();
+    if (isOverQuota) {
+      setStep("queued");
+      return;
+    }
     let idx = 0;
     setStep(stepOrder[idx]);
     const tick = () => {
@@ -112,6 +120,11 @@ const Claim = () => {
           <Button className="w-full" disabled={!file || !wallet} onClick={handleSubmit}>
             {t("claim.submitBtn")}
           </Button>
+        ) : step === "queued" ? (
+          <div className="rounded-lg bg-amber-950/40 border border-amber-600/40 px-4 py-4 text-center space-y-1">
+            <p className="text-sm font-semibold text-amber-400">{t("claim.queued")}</p>
+            <p className="text-xs text-amber-400/70">{t("claim.queuedDays", { days: estimatedDays })}</p>
+          </div>
         ) : (
           <div className="rounded-lg bg-primary/10 border border-primary/30 px-4 py-4">
             <div className="flex items-center justify-between mb-3">

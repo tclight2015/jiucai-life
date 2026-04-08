@@ -115,6 +115,8 @@ const en = {
       sending: "Sending Tokens…",
       done: "Done! JIUCAI has been sent.",
     },
+    queued: "Daily limit reached — your request has been queued",
+    queuedDays: "Estimated delivery: {{days}} day(s) from now",
   },
 
   // ─── 回血牆 ───────────────────────────────────────────
