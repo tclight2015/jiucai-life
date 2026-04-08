@@ -148,6 +148,22 @@ const en = {
       sellTax: "Sell Tax",
       lpLock: "LP Lock",
     },
+    security: {
+      title: "Contract Security",
+      basescan: "Basescan Source Verified",
+      basescanDesc: "Contract source code is publicly verified on Basescan — anyone can inspect it",
+      tokensniffer: "Tokensniffer Score",
+      tokensnifferDesc: "Automated third-party security scan with full risk assessment report",
+      viewReport: "View Report",
+      verified: "Verified",
+    },
+    lpLockSection: {
+      title: "Liquidity Lock",
+      provider: "Uncx Network",
+      duration: "Locked for 1 Year",
+      desc: "LP tokens are locked via Uncx. The founder cannot withdraw liquidity during the lock period. Verifiable on-chain by anyone.",
+      viewLock: "View Lock Record",
+    },
   },
 
   // ─── 邀請 ─────────────────────────────────────────────

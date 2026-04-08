@@ -148,6 +148,22 @@ const zhTW = {
       sellTax: "賣出稅",
       lpLock: "流動池鎖定",
     },
+    security: {
+      title: "合約安全",
+      basescan: "Basescan 開源驗證",
+      basescanDesc: "合約程式碼已在 Basescan 公開驗證，任何人可自行比對原始碼",
+      tokensniffer: "Tokensniffer 安全評分",
+      tokensnifferDesc: "第三方自動化安全掃描，可查看詳細風險評估報告",
+      viewReport: "查看報告",
+      verified: "已驗證",
+    },
+    lpLockSection: {
+      title: "流動池鎖定",
+      provider: "Uncx Network",
+      duration: "鎖定 1 年",
+      desc: "LP Token 已透過 Uncx 鎖定，創辦人在鎖定期間無法提前撤走流動池，任何人可自行鏈上驗證。",
+      viewLock: "查看鎖倉紀錄",
+    },
   },
 
   // ─── 邀請 ─────────────────────────────────────────────

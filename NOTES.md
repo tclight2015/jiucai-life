@@ -183,6 +183,30 @@ $JIUCAI 3-day change: +X.X%
 
 ---
 
+## 代幣資訊頁：合約安全 & 流動池鎖定
+
+### 待填入連結（部署後補上）
+
+| 項目 | 常數位置 | 目標 URL |
+|------|----------|----------|
+| Basescan 合約驗證 | `Token.tsx` → `BASESCAN_URL` | `https://basescan.org/address/0x…#code` |
+| Tokensniffer 安全評分 | `Token.tsx` → `TOKENSNIFFER_URL` | `https://tokensniffer.com/token/…` |
+| Uncx 流動池鎖倉記錄 | `Token.tsx` → `UNCX_LOCK_URL` | `https://app.uncx.network/…` |
+
+### 流動池鎖定規格
+
+- 鎖定期間：**1 年**
+- 鎖定平台：**Uncx Network**
+- LP Token 鎖倉後，創辦人在到期前無法撤走流動池
+- 任何人可在 Uncx 鏈上驗證鎖定狀態，無需信任團隊
+
+### Tokensniffer 備注
+
+- Tokensniffer 為自動化掃描，建議在代幣上線後立即查詢並截圖分數存檔
+- 如評分有問題，需先確認合約設計（如 ownership renounce、黑名單函式移除等）再公開
+
+---
+
 ## 待辦：PWA App Icon
 
 `public/manifest.json` 目前只有 48x48 favicon，手機加入主畫面後 icon 會模糊。
