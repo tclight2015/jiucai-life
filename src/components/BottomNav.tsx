@@ -8,7 +8,7 @@ const BottomNav = () => {
   const { t } = useTranslation();
 
   const tabs = [
-    { href: "/", icon: Home, label: t("nav.home") },
+    { href: "/home", icon: Home, label: t("nav.home") },
     { href: "/pool", icon: Gift, label: t("nav.pool") },
     { href: "/recovery", icon: TrendingUp, label: t("nav.recovery") },
     { href: "/chat", icon: MessageSquare, label: t("nav.chat") },
@@ -20,7 +20,9 @@ const BottomNav = () => {
       <div className="max-w-lg mx-auto flex items-center justify-around px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
         {tabs.map((tab) => {
           const Icon = tab.icon;
-          const active = location.pathname === tab.href;
+          const active =
+            location.pathname === tab.href ||
+            (tab.href === "/home" && location.pathname === "/");
           return (
             <button
               key={tab.href}

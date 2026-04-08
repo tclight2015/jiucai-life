@@ -225,6 +225,17 @@ const en = {
     },
     footer: "Time: {time}",
   },
+
+  // ─── Landing / Home ───────────────────────────────────
+  landing: {
+    connect: "Connect Wallet",
+    desc: "Enter your wallet address to continue",
+    placeholder: "Enter wallet address 0x…",
+    disconnect: "Logout",
+  },
+  home: {
+    detail: "View Details",
+  },
 } as const;
 
 export default en;

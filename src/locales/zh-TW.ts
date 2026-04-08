@@ -226,6 +226,17 @@ const zhTW = {
     },
     footer: "時間：{time}",
   },
+
+  // ─── Landing / Home ───────────────────────────────────
+  landing: {
+    connect: "連結錢包",
+    desc: "輸入錢包地址以繼續",
+    placeholder: "輸入錢包地址 0x…",
+    disconnect: "登出",
+  },
+  home: {
+    detail: "查看詳情",
+  },
 } as const;
 
 export default zhTW;

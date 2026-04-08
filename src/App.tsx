@@ -8,6 +8,7 @@ import BottomNav from "./components/BottomNav";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Index      = lazy(() => import("./pages/Index"));
+const Home       = lazy(() => import("./pages/Home"));
 const About      = lazy(() => import("./pages/About"));
 const Pool       = lazy(() => import("./pages/Pool"));
 const Profile    = lazy(() => import("./pages/Profile"));
@@ -47,6 +48,7 @@ const App = () => (
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/pool" element={<Pool />} />
             <Route path="/profile" element={<Profile />} />
