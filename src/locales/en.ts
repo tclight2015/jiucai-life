@@ -1,8 +1,8 @@
 const en = {
   // ─── App ──────────────────────────────────────────────
   app: {
-    title: "Jiucai Life",
-    subtitle: "For everyone who's been cut down",
+    title: "Diary of an Underdog's Rise",
+    subtitle: "For everyone who's been burned before.",
   },
 
   // ─── 共用 ─────────────────────────────────────────────

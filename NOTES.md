@@ -112,6 +112,78 @@
 - `server/monitors/txMonitor.ts` — 交易失敗監控
 
 
+---
+
+## 開獎推播流程（以週六晚上 20:00 開獎為例）
+
+**發送對象**：頻道廣播（全體）+ 個人私訊（符合資格者 / 中獎者），兩種都有。
+**節奏**：有意義的時間點，不是機械式倒數。
+
+| 時間 | 對象 | 類型 | 內容重點 |
+|------|------|------|----------|
+| T-1 晚 | 全體 | 頻道廣播 | 預告明日開獎 + 獎池金額 + 加碼 CTA + **$JIUCAI 近3日漲跌幅** |
+| 當天 12:00 | 符合資格者 | 個人私訊 | 你有資格！提醒 18:00 前開啟卡牌 |
+| 當天 18:00 | 符合資格者 | 個人私訊 | 還有2小時，卡牌還沒開嗎？⚡ |
+| 19:45 | — | 系統內部 | 最終掃描卡牌狀態（不發通知）|
+| 20:00 | 管理員（你）| Telegram 私訊 | Inline keyboard：確認開獎 / 暫緩 |
+| 開獎後 | 中獎者 | 個人私訊 | 恭喜中獎 + 截圖激勵（首次中獎額外獎勵）|
+
+**不推播**：開獎總額、得獎名單（只放網站 Pool 頁面）
+
+### 訊息格式
+
+**T-1 頻道廣播**
+```
+🎰 明天晚上8點開獎！
+本次預計送出 $XXX USDT
+持幣越多權重越高，快去加碼！
+明天中午前加碼都還來得及 💚
+$JIUCAI 近三日漲跌幅：+X.X%
+
+🌐 Tomorrow 8PM draw — $XXX USDT prize pool
+Hold more = higher weight. Top up by noon! 💚
+$JIUCAI 3-day change: +X.X%
+```
+
+**當天 12:00 個人私訊**
+```
+你符合今晚抽獎資格 🎉
+記得在下午6點前開啟卡牌，提高你的中獎機率！
+🌐 You qualify for tonight's draw 🎉 Activate cards before 6PM!
+```
+
+**當天 18:00 個人私訊**
+```
+還有2小時開獎，卡牌還沒開嗎？現在還來得及 ⚡
+🌐 2 hours to draw — cards not activated yet? Still time! ⚡
+```
+
+**20:00 管理員確認（inline keyboard）**
+```
+🎰 第 X 期開獎時間到了
+符合資格：XXX 人｜獎池：$XXX USDT
+[✅ 確認開獎]  [⏸ 暫緩]
+```
+
+**開獎後 個人私訊（中獎者）**
+```
+恭喜你中獎了 🎉 $X USDT 已打入你的錢包
+進網站 po 出收款截圖，再拿額外獎勵！此機會終身一次 💚
+🌐 You won! $X USDT sent. Post receipt screenshot for a bonus! (One-time only 💚)
+```
+
+### 幣價資料
+- `server/services/priceService.ts`：`getJiucaiPriceChange3d()` → DexScreener API
+- 若 API 失敗回傳 `"--"`，不影響推播
+
+### 管理員確認機制
+- inline keyboard 按「確認開獎」→ 觸發 `/api/draw/confirm`
+- 按「暫緩」→ 觸發 `/api/draw/postpone` + 廣播延期通知
+- 實作：`server/bot/drawConfirmHandler.ts`
+
+---
+
+## 待辦：PWA App Icon
 
 `public/manifest.json` 目前只有 48x48 favicon，手機加入主畫面後 icon 會模糊。
 需提供品牌 icon 圖後，新增以下兩個檔案：

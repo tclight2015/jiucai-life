@@ -2,6 +2,7 @@
  * Telegram 雙語通知服務
  * - 管理員警報（私訊給管理員，中文）
  * - 用戶廣播通知（中英雙語，發送到頻道或群組）
+ * - 分階段抽獎推播流程
  */
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
@@ -13,21 +14,33 @@ const API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
 // ─── 底層發送 ──────────────────────────────────────────────────────────────
 
-async function sendTo(chatId: string, text: string): Promise<void> {
+async function sendTo(
+  chatId: string,
+  text: string,
+  replyMarkup?: object
+): Promise<void> {
   if (!BOT_TOKEN || !chatId) {
     console.warn("[Telegram] Missing credentials, skipping:", text.slice(0, 50));
     return;
   }
+  const body: Record<string, unknown> = {
+    chat_id: chatId,
+    text,
+    parse_mode: "HTML",
+  };
+  if (replyMarkup) body.reply_markup = replyMarkup;
+
   const res = await fetch(`${API}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) console.error("[Telegram] Send failed:", await res.text());
 }
 
 /** 管理員（私訊，中文） */
-const admin = (text: string) => sendTo(ADMIN_CHAT_ID, text);
+const admin = (text: string, replyMarkup?: object) =>
+  sendTo(ADMIN_CHAT_ID, text, replyMarkup);
 
 /** 頻道（雙語，中文在前）*/
 const channel = (zh: string, en: string) =>
@@ -129,71 +142,154 @@ export async function alertNoWinHolders(holders: NoWinHolder[]): Promise<void> {
   );
 }
 
-// ─── 用戶廣播通知（雙語）──────────────────────────────────────────────────
+// ─── 分階段抽獎推播流程 ────────────────────────────────────────────────────
+//
+// T-1 晚上   → notifyDrawAnnouncementT1   (頻道廣播，含幣價)
+// 開獎日 12:00 → notifyEligibilityReminder (個別私訊資格持有者)
+// 開獎日 18:00 → notifyCardActivationUrgent (個別私訊 2 小時倒數)
+// 19:45       → 內部掃描，不發推播
+// 20:00       → notifyAdminDrawConfirm     (管理員 inline keyboard)
+// 開獎後      → notifyWinnerDirect         (個別私訊得獎者)
 
-export async function notifyDrawReminder(
+/**
+ * T-1 開獎預告：發至頻道，含獎池金額與 JIUCAI 3 日漲跌幅
+ * @param round       本期期數
+ * @param drawDate    開獎日期，如 "2026/04/10"
+ * @param drawTime    開獎時間，如 "20:00"
+ * @param usdt        獎池 USDT 金額
+ * @param jiucai      獎池 JIUCAI 數量
+ * @param priceChange3d  3 日漲跌幅，如 +12.5 或 -8.3
+ */
+export async function notifyDrawAnnouncementT1(
   round: number,
-  date: string,
-  time: string,
+  drawDate: string,
+  drawTime: string,
+  usdt: number,
+  jiucai: number,
+  priceChange3d: number
+): Promise<void> {
+  const sign = priceChange3d >= 0 ? "+" : "";
+  const priceTag = `${sign}${priceChange3d.toFixed(1)}%`;
+  const priceEmoji = priceChange3d >= 0 ? "📈" : "📉";
+
+  await channel(
+    `🎰 <b>【抽獎預告】第 ${round} 期</b>\n\n` +
+    `📅 開獎時間：${drawDate} ${drawTime} (UTC+8)\n` +
+    `💰 本期獎池：$${usdt.toLocaleString()} USDT + ${jiucai.toLocaleString()} JIUCAI\n` +
+    `${priceEmoji} JIUCAI 近三日漲跌：${priceTag}\n\n` +
+    `持幣者自動參與抽獎，持幣愈久中獎機率愈高！\n` +
+    `記得在開獎前啟用你的幸運卡牌 🃏`,
+
+    `🎰 <b>[Draw Announcement] Round ${round}</b>\n\n` +
+    `📅 Draw Time: ${drawDate} ${drawTime} (UTC+8)\n` +
+    `💰 Prize Pool: $${usdt.toLocaleString()} USDT + ${jiucai.toLocaleString()} JIUCAI\n` +
+    `${priceEmoji} JIUCAI 3-Day Price Change: ${priceTag}\n\n` +
+    `All eligible holders are automatically entered.\n` +
+    `Activate your lucky card before the draw! 🃏`
+  );
+}
+
+/**
+ * 開獎日 12:00：個別私訊資格持有者，提醒開卡
+ * @param chatId  持有者的 Telegram Chat ID
+ * @param round   本期期數
+ * @param drawTime 開獎時間，如 "20:00"
+ */
+export async function notifyEligibilityReminder(
+  chatId: string,
+  round: number,
+  drawTime: string
+): Promise<void> {
+  await sendTo(
+    chatId,
+    `🃏 <b>你有資格參與今晚的抽獎！</b>\n\n` +
+    `第 ${round} 期開獎時間：今日 ${drawTime} (UTC+8)\n\n` +
+    `請確認你的幸運卡牌已啟用，否則將無法參與本期抽獎。\n` +
+    `前往 jiucai.life → 我的 → 查看卡牌狀態\n\n` +
+    `🌐 You're eligible for tonight's draw (Round ${round})!\n` +
+    `Draw at ${drawTime} UTC+8. Make sure your lucky card is active!\n` +
+    `Visit jiucai.life → Me → Card Status`
+  );
+}
+
+/**
+ * 開獎日 18:00：個別私訊持有者，2 小時倒數警示
+ * @param chatId  持有者的 Telegram Chat ID
+ * @param round   本期期數
+ */
+export async function notifyCardActivationUrgent(
+  chatId: string,
+  round: number
+): Promise<void> {
+  await sendTo(
+    chatId,
+    `⚡ <b>距離開獎剩 2 小時！</b>\n\n` +
+    `第 ${round} 期將於 20:00 (UTC+8) 開獎\n\n` +
+    `⚠️ 尚未啟用卡牌者請立即前往啟用，逾時無法補開。\n` +
+    `jiucai.life → 我的 → 幸運卡牌\n\n` +
+    `🌐 2 Hours to Draw (Round ${round})!\n` +
+    `Draw at 20:00 UTC+8. Activate your card NOW or miss out!\n` +
+    `jiucai.life → Me → Lucky Card`
+  );
+}
+
+/**
+ * 20:00：推送管理員確認訊息，含 inline keyboard（確認開獎 / 延後）
+ * @param round          本期期數
+ * @param eligibleCount  已確認資格人數
+ * @param usdt           獎池 USDT
+ * @param jiucai         獎池 JIUCAI
+ */
+export async function notifyAdminDrawConfirm(
+  round: number,
+  eligibleCount: number,
   usdt: number,
   jiucai: number
 ): Promise<void> {
-  await channel(
-    `🎰 <b>【抽獎預告】</b>\n` +
-    `韭菜翻身日記 第 ${round} 期抽獎\n` +
-    `📅 開獎時間：${date} ${time} (UTC+8)\n` +
-    `💰 獎池：$${usdt} USDT · ${jiucai.toLocaleString()} JIUCAI\n\n` +
-    `持幣者自動參與，持幣愈久機率愈高！`,
-
-    `🎰 <b>[Draw Announcement]</b>\n` +
-    `Jiucai Life — Round ${round}\n` +
-    `📅 Draw Time: ${date} ${time} (UTC+8)\n` +
-    `💰 Pool: $${usdt} USDT · ${jiucai.toLocaleString()} JIUCAI\n\n` +
-    `All eligible holders entered. Hold longer = better odds!`
+  await admin(
+    `🎰 <b>【開獎確認】第 ${round} 期</b>\n\n` +
+    `📋 資格持有人數：${eligibleCount} 人\n` +
+    `💰 獎池：$${usdt.toLocaleString()} USDT + ${jiucai.toLocaleString()} JIUCAI\n\n` +
+    `請選擇操作：`,
+    {
+      inline_keyboard: [
+        [
+          { text: "✅ 確認開獎", callback_data: `draw_confirm:${round}` },
+          { text: "⏸ 延後 24h",  callback_data: `draw_postpone:${round}` },
+        ],
+      ],
+    }
   );
 }
 
-export async function notifyDrawResult(
-  round: number,
-  winners: { wallet: string; prize: string }[],
-  totalUsdt: number,
-  totalJiucai: number
-): Promise<void> {
-  const listZh = winners.map((w, i) => `${i + 1}. <code>${w.wallet}</code>｜${w.prize}`).join("\n");
-  const listEn = listZh; // 錢包地址相同，不需翻譯
-  await channel(
-    `🏆 <b>【開獎結果】第 ${round} 期</b>\n` +
-    `共 ${winners.length} 位幸運兒中獎！\n` +
-    `💰 總獎金：$${totalUsdt} USDT · ${totalJiucai.toLocaleString()} JIUCAI\n\n` +
-    `恭喜以下錢包：\n${listZh}\n\n` +
-    `沒中？繼續持幣，下次再來！💪`,
-
-    `🏆 <b>[Draw Result] Round ${round}</b>\n` +
-    `${winners.length} lucky winner(s)!\n` +
-    `💰 Total: $${totalUsdt} USDT · ${totalJiucai.toLocaleString()} JIUCAI\n\n` +
-    `Winning wallets:\n${listEn}\n\n` +
-    `Didn't win? Keep holding — next round is yours! 💪`
-  );
-}
-
+/**
+ * 開獎後：個別私訊得獎者
+ * @param chatId  得獎者 Telegram Chat ID
+ * @param round   本期期數
+ * @param prize   獎金說明，如 "$50 USDT"
+ * @param eta     預計到帳時間，如 "24 小時"
+ */
 export async function notifyWinnerDirect(
   chatId: string,
   round: number,
   prize: string,
   eta: string
 ): Promise<void> {
-  // 直接私訊得獎者（需要用戶先對 bot 傳過訊息才能私訊）
   await sendTo(
     chatId,
-    `🎉 <b>恭喜你！韭菜翻身成功！</b>\n\n` +
-    `你在第 ${round} 期抽獎中獎了！\n` +
+    `🎉 <b>恭喜！你在第 ${round} 期中獎了！</b>\n\n` +
     `獎金：${prize}\n` +
     `預計 ${eta} 內到帳\n\n` +
+    `📸 收到獎金後歡迎截圖分享到社群，讓更多韭菜看到翻身的希望！\n` +
     `持幣就有機會，繼續加油！🌱\n\n` +
     `🌐 Congratulations! You won Round ${round}!\n` +
-    `Prize: ${prize} — arriving within ${eta}. Keep holding! 🌱`
+    `Prize: ${prize} — arriving within ${eta}.\n` +
+    `Screenshot your win and share it with the community! 📸\n` +
+    `Keep holding, keep winning! 🌱`
   );
 }
+
+// ─── 其他用戶通知 ──────────────────────────────────────────────────────────
 
 export async function notifyClaimResult(
   chatId: string,
