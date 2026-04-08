@@ -1,8 +1,8 @@
 const en = {
   // ─── App ──────────────────────────────────────────────
   app: {
-    title: "Diary of an Underdog's Rise",
-    subtitle: "For everyone who's been burned before.",
+    title: "THE DEGEN'S REVENGE DIARY",
+    subtitle: "EVERYONE WHO GOT RUGGED IS HERE.",
   },
 
   // ─── 共用 ─────────────────────────────────────────────
