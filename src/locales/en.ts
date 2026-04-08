@@ -225,7 +225,7 @@ const en = {
       claimRejected: "❌ Claim Rejected\nReason: {reason}\nFor questions, leave a message in the Vent section",
       inviteSuccess: "🎊 Referral Success!\nYour friend has completed their claim\nTotal successful referrals: {count}\n\nMore referrals = more advantages in future competitions!",
     },
-    footer: "Time: {time}",
+    footer: "Time: {time} (UTC+8)",
   },
 
   // ─── Landing / Home ───────────────────────────────────

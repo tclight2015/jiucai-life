@@ -226,7 +226,7 @@ const zhTW = {
       claimRejected: "❌ 索幣申請未通過\n原因：{reason}\n如有疑問請在吐槽區留言",
       inviteSuccess: "🎊 邀請成功！\n你邀請的朋友已完成索幣\n累計成功邀請：{count} 人\n\n邀請愈多，未來競賽優勢愈大！",
     },
-    footer: "時間：{time}",
+    footer: "時間：{time}（UTC+8）",
   },
 
   // ─── Landing / Home ───────────────────────────────────
