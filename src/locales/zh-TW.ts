@@ -49,7 +49,7 @@ const zhTW = {
   // ─── 獎池頁 ───────────────────────────────────────────
   pool: {
     title: "當前獎池",
-    countdown: "下次開獎倒數",
+    countdown: "下次開獎倒數（UTC+8）",
     history: "歷史開獎記錄",
     winners: "位中獎",
     units: { d: "天", h: "時", m: "分", s: "秒" },
@@ -76,7 +76,7 @@ const zhTW = {
 
   // ─── 行事曆 ───────────────────────────────────────────
   calendar: {
-    upcoming: "即將開獎",
+    upcoming: "即將開獎（UTC+8）",
     history: "歷史開獎",
     winnerCount: "中獎 {{count}} 人",
     walletQuery: "查詢錢包中獎記錄",
@@ -116,7 +116,7 @@ const zhTW = {
       done: "完成！JIUCAI 已到帳",
     },
     queued: "超出每日限額，您的申請已排隊",
-    queuedDays: "預計將於 {{days}} 天後發送至錢包",
+    queuedDays: "預計將於 {{days}} 天後發送至錢包（以 UTC+8 日期計算）",
   },
 
   // ─── 回血牆 ───────────────────────────────────────────

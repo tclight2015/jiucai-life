@@ -49,7 +49,7 @@ const en = {
   // ─── 獎池頁 ───────────────────────────────────────────
   pool: {
     title: "Current Prize Pool",
-    countdown: "Next Draw Countdown",
+    countdown: "Next Draw Countdown (UTC+8)",
     history: "Draw History",
     winners: "winners",
     units: { d: "d", h: "h", m: "m", s: "s" },
@@ -76,7 +76,7 @@ const en = {
 
   // ─── 行事曆 ───────────────────────────────────────────
   calendar: {
-    upcoming: "Upcoming Draws",
+    upcoming: "Upcoming Draws (UTC+8)",
     history: "Draw History",
     winnerCount: "{{count}} winners",
     walletQuery: "Check Wallet Win History",
@@ -116,7 +116,7 @@ const en = {
       done: "Done! JIUCAI has been sent.",
     },
     queued: "Daily limit reached — your request has been queued",
-    queuedDays: "Estimated delivery: {{days}} day(s) from now",
+    queuedDays: "Estimated delivery: {{days}} day(s) from now (UTC+8)",
   },
 
   // ─── 回血牆 ───────────────────────────────────────────
