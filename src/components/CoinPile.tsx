@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import coinPileImg from "@/assets/coin-pile.png";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -9,6 +10,7 @@ interface CoinPileProps {
 }
 
 const CoinPile = ({ amountU, amountJiucai, isLoading }: CoinPileProps) => {
+  const { t } = useTranslation();
   const [displayU, setDisplayU] = useState(0);
   const [displayJiucai, setDisplayJiucai] = useState(0);
 
@@ -42,7 +44,7 @@ const CoinPile = ({ amountU, amountJiucai, isLoading }: CoinPileProps) => {
       >
         <img
           src={coinPileImg}
-          alt="金幣堆"
+          alt="coin pile"
           width={280}
           height={180}
           className="w-52 md:w-72 h-auto drop-shadow-2xl"
@@ -50,7 +52,7 @@ const CoinPile = ({ amountU, amountJiucai, isLoading }: CoinPileProps) => {
       </div>
 
       <div className="mt-4 text-center">
-        <p className="text-sm md:text-base text-muted-foreground mb-1">目前累計獎金</p>
+        <p className="text-sm md:text-base text-muted-foreground mb-1">{t("coinPile.label")}</p>
         {isLoading ? (
           <div className="flex items-center justify-center gap-3">
             <Skeleton className="h-8 w-28 rounded-lg" />

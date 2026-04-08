@@ -1,20 +1,12 @@
 import CoinPile from "@/components/CoinPile";
 import WalkingPerson from "@/components/WalkingPerson";
+import PageHeader from "@/components/PageHeader";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { usePoolData } from "@/hooks/usePoolData";
 import {
-  Gift,
-  TrendingUp,
-  MessageSquare,
-  Skull,
-  ArrowLeftRight,
-  Hand,
-  Star,
-  User,
-  BookOpen,
-  Coins,
-  Users,
-  ScrollText,
+  Gift, TrendingUp, MessageSquare, Skull, ArrowLeftRight,
+  Hand, Star, User, BookOpen, Coins, Users, ScrollText,
 } from "lucide-react";
 
 import person1 from "@/assets/person1.png";
@@ -35,41 +27,41 @@ const people = [
   { src: person7, startX: 150, startY: 540, speed: 0.75 },
 ];
 
-const modules = [
-  { title: "抽獎名單", icon: Gift, href: "/pool", highlight: true },
-  { title: "我發誓，回血中", icon: TrendingUp, href: "/recovery" },
-  { title: "我要吐槽", icon: MessageSquare, href: "/chat" },
-  { title: "邪惡排行榜", icon: Skull, href: "/leaderboard" },
-  { title: "買賣韭菜幣", icon: ArrowLeftRight, href: "/token" },
-  { title: "我要索幣", icon: Hand, href: "/claim" },
-  { title: "最新抽獎活動", icon: Star, href: "/calendar" },
-  { title: "個人資訊", icon: User, href: "/profile" },
-  { title: "抽獎規則", icon: BookOpen, href: "/rules" },
-  { title: "代幣資訊", icon: Coins, href: "/token" },
-  { title: "邀請朋友", icon: Users, href: "/invite" },
-  { title: "韭菜宣言", icon: ScrollText, href: "/about" },
-];
-
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { usdt, jiucai, isLoading } = usePoolData();
+
+  const modules = [
+    { key: "lottery",     icon: Gift,            href: "/pool",        highlight: true },
+    { key: "recovery",    icon: TrendingUp,       href: "/recovery" },
+    { key: "chat",        icon: MessageSquare,    href: "/chat" },
+    { key: "leaderboard", icon: Skull,            href: "/leaderboard" },
+    { key: "trade",       icon: ArrowLeftRight,   href: "/token" },
+    { key: "claim",       icon: Hand,             href: "/claim" },
+    { key: "calendar",    icon: Star,             href: "/calendar" },
+    { key: "profile",     icon: User,             href: "/profile" },
+    { key: "rules",       icon: BookOpen,         href: "/rules" },
+    { key: "token",       icon: Coins,            href: "/token" },
+    { key: "invite",      icon: Users,            href: "/invite" },
+    { key: "about",       icon: ScrollText,       href: "/about" },
+  ] as const;
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.04]" style={{ background: 'radial-gradient(circle, hsl(var(--gold-light)), transparent 70%)' }} />
-        <div className="absolute top-1/3 -left-24 w-72 h-72 rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, hsl(var(--gold)), transparent 70%)' }} />
-        <div className="absolute bottom-20 right-10 w-60 h-60 rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, hsl(var(--primary)), transparent 70%)' }} />
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, hsl(var(--gold-light)), transparent 70%)" }} />
+        <div className="absolute top-1/3 -left-24 w-72 h-72 rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent 70%)" }} />
+        <div className="absolute bottom-20 right-10 w-60 h-60 rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
       </div>
 
       <div className="h-px bg-border" />
 
-      {/* Header */}
-      <div className="flex flex-col items-center pt-8 md:pt-14 relative z-10">
-        <h1 className="hero-title">韭菜翻身日記</h1>
-        <p className="hero-subtitle">被割過的人，都在這裡</p>
+      {/* Header (includes language toggle) */}
+      <div className="max-w-lg mx-auto px-4 relative z-10">
+        <PageHeader />
       </div>
 
       {/* Coin pile */}
@@ -81,33 +73,24 @@ const Index = () => {
       <div className="relative z-10 max-w-lg mx-auto px-4 mt-6 pb-28 space-y-3">
         {modules.map((mod) => {
           const Icon = mod.icon;
+          const highlight = "highlight" in mod && mod.highlight;
           return (
             <button
-              key={mod.title}
+              key={mod.key}
               onClick={() => navigate(mod.href)}
               className={`w-full group flex items-center gap-4 rounded-xl border bg-card px-5 py-4 shadow-sm transition-all duration-200 hover:shadow-md hover:shadow-primary/10 active:scale-[0.98] text-left ${
-                mod.highlight
-                  ? "border-primary bg-primary/5 hover:border-primary"
-                  : "border-border hover:border-primary/60"
+                highlight ? "border-primary bg-primary/5 hover:border-primary" : "border-border hover:border-primary/60"
               }`}
             >
               <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors ${
-                mod.highlight
-                  ? "bg-primary/20 text-primary"
-                  : "bg-primary/10 text-primary group-hover:bg-primary/20"
+                highlight ? "bg-primary/20 text-primary" : "bg-primary/10 text-primary group-hover:bg-primary/20"
               }`}>
                 <Icon size={20} />
               </div>
               <span className="text-sm font-semibold text-foreground tracking-wide">
-                {mod.title}
+                {t(`modules.${mod.key}`)}
               </span>
-              <svg
-                className="ml-auto h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
+              <svg className="ml-auto h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -116,9 +99,7 @@ const Index = () => {
       </div>
 
       {/* Walking people */}
-      {people.map((p, i) => (
-        <WalkingPerson key={i} {...p} />
-      ))}
+      {people.map((p, i) => <WalkingPerson key={i} {...p} />)}
     </div>
   );
 };

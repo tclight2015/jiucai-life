@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PageLayout from "@/components/PageLayout";
 
 const board = [
@@ -13,13 +14,6 @@ const board = [
   { rank: 10, wallet: "0x8899…1100", usdt: 10, jiucai: 200000, wins: 2 },
 ];
 
-const medalColor = (rank: number) => {
-  if (rank === 1) return "text-yellow-400";
-  if (rank === 2) return "text-slate-400";
-  if (rank === 3) return "text-amber-600";
-  return "text-muted-foreground";
-};
-
 const rowBg = (rank: number) => {
   if (rank === 1) return "border-yellow-400/40 bg-yellow-400/5";
   if (rank === 2) return "border-slate-400/40 bg-slate-400/5";
@@ -27,33 +21,32 @@ const rowBg = (rank: number) => {
   return "border-border bg-card";
 };
 
-const Leaderboard = () => (
-  <PageLayout>
-    <p className="text-center text-xs text-muted-foreground mb-4">累計中獎金額排行，狗屎運比拚</p>
-
-    <div className="space-y-2">
-      {board.map((row) => (
-        <div key={row.rank} className={`rounded-xl border p-4 shadow-sm ${rowBg(row.rank)}`}>
-          <div className="flex items-center gap-3">
-            {/* Rank */}
-            <div className={`w-8 text-center text-lg font-black ${medalColor(row.rank)}`}>
-              {row.rank <= 3 ? ["🥇", "🥈", "🥉"][row.rank - 1] : `#${row.rank}`}
-            </div>
-            {/* Wallet */}
-            <div className="flex-1 min-w-0">
-              <p className="font-mono text-sm font-semibold text-foreground truncate">{row.wallet}</p>
-              <p className="text-xs text-muted-foreground">中獎 {row.wins} 次</p>
-            </div>
-            {/* Prize */}
-            <div className="text-right shrink-0">
-              <p className="text-sm font-bold text-primary">${row.usdt} USDT</p>
-              <p className="text-xs text-muted-foreground">{row.jiucai.toLocaleString()} JIUCAI</p>
+const Leaderboard = () => {
+  const { t } = useTranslation();
+  return (
+    <PageLayout>
+      <p className="text-center text-xs text-muted-foreground mb-4">{t("leaderboard.subtitle")}</p>
+      <div className="space-y-2">
+        {board.map((row) => (
+          <div key={row.rank} className={`rounded-xl border p-4 shadow-sm ${rowBg(row.rank)}`}>
+            <div className="flex items-center gap-3">
+              <div className="w-8 text-center text-lg font-black">
+                {row.rank <= 3 ? ["🥇", "🥈", "🥉"][row.rank - 1] : `#${row.rank}`}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-mono text-sm font-semibold text-foreground truncate">{row.wallet}</p>
+                <p className="text-xs text-muted-foreground">{t("leaderboard.winCount", { count: row.wins })}</p>
+              </div>
+              <div className="text-right shrink-0">
+                <p className="text-sm font-bold text-primary">${row.usdt} USDT</p>
+                <p className="text-xs text-muted-foreground">{row.jiucai.toLocaleString()} JIUCAI</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </PageLayout>
-);
+        ))}
+      </div>
+    </PageLayout>
+  );
+};
 
 export default Leaderboard;

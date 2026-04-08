@@ -1,17 +1,19 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Home, Gift, TrendingUp, MessageSquare, User } from "lucide-react";
-
-const tabs = [
-  { href: "/", icon: Home, label: "首頁" },
-  { href: "/pool", icon: Gift, label: "獎池" },
-  { href: "/recovery", icon: TrendingUp, label: "回血" },
-  { href: "/chat", icon: MessageSquare, label: "吐槽" },
-  { href: "/profile", icon: User, label: "我的" },
-];
 
 const BottomNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const tabs = [
+    { href: "/", icon: Home, label: t("nav.home") },
+    { href: "/pool", icon: Gift, label: t("nav.pool") },
+    { href: "/recovery", icon: TrendingUp, label: t("nav.recovery") },
+    { href: "/chat", icon: MessageSquare, label: t("nav.chat") },
+    { href: "/profile", icon: User, label: t("nav.profile") },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/95 backdrop-blur-sm">

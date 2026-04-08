@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PageLayout from "@/components/PageLayout";
 import { usePoolData } from "@/hooks/usePoolData";
 
@@ -29,12 +30,18 @@ function useCountdown(target: Date) {
 const Pool = () => {
   const { usdt, jiucai } = usePoolData();
   const { d, h, m, s } = useCountdown(NEXT_DRAW);
+  const { t } = useTranslation();
+  const units = [
+    { v: d, l: t("pool.units.d") },
+    { v: h, l: t("pool.units.h") },
+    { v: m, l: t("pool.units.m") },
+    { v: s, l: t("pool.units.s") },
+  ];
 
   return (
     <PageLayout>
-      {/* Pool amounts */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <p className="text-sm text-muted-foreground mb-3">當前獎池</p>
+        <p className="text-sm text-muted-foreground mb-3">{t("pool.title")}</p>
         <div className="flex flex-wrap items-baseline gap-3">
           <span className="coin-amount">
             <span className="coin-number">{usdt.toLocaleString()}</span>
@@ -48,11 +55,10 @@ const Pool = () => {
         </div>
       </div>
 
-      {/* Countdown */}
       <div className="rounded-xl border border-primary/40 bg-primary/5 p-5 shadow-sm mb-6">
-        <p className="text-sm text-muted-foreground mb-3">下次開獎倒數</p>
+        <p className="text-sm text-muted-foreground mb-3">{t("pool.countdown")}</p>
         <div className="flex justify-center gap-4">
-          {[{ v: d, l: "天" }, { v: h, l: "時" }, { v: m, l: "分" }, { v: s, l: "秒" }].map(({ v, l }) => (
+          {units.map(({ v, l }) => (
             <div key={l} className="flex flex-col items-center">
               <span className="font-mono text-3xl font-bold text-primary w-12 text-center">
                 {String(v).padStart(2, "0")}
@@ -61,22 +67,19 @@ const Pool = () => {
             </div>
           ))}
         </div>
-        <p className="text-center text-xs text-muted-foreground mt-3">
-          2026/04/10 20:00 (UTC+8)
-        </p>
+        <p className="text-center text-xs text-muted-foreground mt-3">2026/04/10 20:00 (UTC+8)</p>
       </div>
 
-      {/* History */}
       <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground">歷史開獎記錄</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t("pool.history")}</h2>
         </div>
         <div className="divide-y divide-border">
           {history.map((row) => (
             <div key={row.date} className="px-5 py-3 flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-foreground">{row.date}</p>
-                <p className="text-xs text-muted-foreground">{row.winners} 位中獎</p>
+                <p className="text-xs text-muted-foreground">{row.winners} {t("pool.winners")}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold text-primary">${row.usdt} USDT</p>

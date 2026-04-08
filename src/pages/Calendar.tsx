@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PageLayout from "@/components/PageLayout";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -27,17 +28,16 @@ const walletHistory: Record<string, { date: string; prize: string }[]> = {
 };
 
 const Calendar = () => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [searched, setSearched] = useState("");
-
   const results = walletHistory[searched.slice(0, 6).toLowerCase()] ?? null;
 
   return (
     <PageLayout>
-      {/* Upcoming */}
       <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden mb-4">
         <div className="px-5 py-4 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground">即將開獎</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t("calendar.upcoming")}</h2>
         </div>
         <div className="divide-y divide-border">
           {upcoming.map((row) => (
@@ -46,24 +46,23 @@ const Calendar = () => {
                 <p className="text-sm font-semibold text-foreground">{row.date} {row.time} (UTC+8)</p>
                 <span className="text-sm font-bold text-primary">${row.usdt}</span>
               </div>
-              <p className="text-xs text-muted-foreground">{row.qualify}</p>
+              <p className="text-xs text-muted-foreground">{t("calendar.qualify")}：{row.qualify}</p>
               <p className="text-xs text-muted-foreground">{row.jiucai.toLocaleString()} JIUCAI</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* History */}
       <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden mb-6">
         <div className="px-5 py-4 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground">歷史開獎</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t("calendar.history")}</h2>
         </div>
         <div className="divide-y divide-border">
           {historyDraws.map((row) => (
             <div key={row.date} className="px-5 py-3 flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-foreground">{row.date}</p>
-                <p className="text-xs text-muted-foreground">中獎 {row.winners} 人</p>
+                <p className="text-xs text-muted-foreground">{t("calendar.winnerCount", { count: row.winners })}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-semibold text-primary">${row.totalUsdt} USDT</p>
@@ -74,17 +73,16 @@ const Calendar = () => {
         </div>
       </div>
 
-      {/* Wallet query */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-        <h2 className="text-sm font-semibold text-foreground mb-3">查詢錢包中獎記錄</h2>
+        <h2 className="text-sm font-semibold text-foreground mb-3">{t("calendar.walletQuery")}</h2>
         <div className="flex gap-2">
           <Input
-            placeholder="輸入錢包地址 0x..."
+            placeholder={t("calendar.walletPlaceholder")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="font-mono text-sm"
           />
-          <Button onClick={() => setSearched(query)} size="sm">查詢</Button>
+          <Button onClick={() => setSearched(query)} size="sm">{t("common.query")}</Button>
         </div>
         {searched && (
           <div className="mt-4">
@@ -98,7 +96,7 @@ const Calendar = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">此地址無中獎記錄</p>
+              <p className="text-sm text-muted-foreground">{t("calendar.noRecord")}</p>
             )}
           </div>
         )}

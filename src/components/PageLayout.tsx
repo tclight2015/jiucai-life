@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import PageHeader from "./PageHeader";
 
 interface PageLayoutProps {
@@ -8,6 +9,7 @@ interface PageLayoutProps {
 
 const PageLayout = ({ children, showBack = true }: PageLayoutProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background">
@@ -21,7 +23,7 @@ const PageLayout = ({ children, showBack = true }: PageLayoutProps) => {
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
-            返回
+            {t("common.back")}
           </button>
         )}
         {children}

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PageLayout from "@/components/PageLayout";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
@@ -14,8 +15,8 @@ const mockProfile = {
   timeMultiplier: "1.5x",
   totalPrizeUsdt: 12,
   totalPrizeJiucai: 250000,
-  referrals: 3,         // 邀請總人數
-  referralSuccess: 2,   // 成功邀請（被邀請人已完成索幣）
+  referrals: 3,
+  referralSuccess: 2,
 };
 
 const mockCards = [
@@ -25,74 +26,67 @@ const mockCards = [
 ];
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [cards, setCards] = useState(mockCards);
-
-  const toggle = (id: number) => {
-    setCards((prev) => prev.map((c) => c.id === id ? { ...c, enabled: !c.enabled } : c));
-  };
-
   const p = mockProfile;
+  const toggle = (id: number) => setCards((prev) => prev.map((c) => c.id === id ? { ...c, enabled: !c.enabled } : c));
 
   return (
     <PageLayout>
-      {/* Wallet */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <p className="text-xs text-muted-foreground mb-1">已連結錢包</p>
+        <p className="text-xs text-muted-foreground mb-1">{t("profile.wallet")}</p>
         <p className="font-mono text-sm font-semibold text-foreground">{p.wallet}</p>
       </div>
 
-      {/* Holdings */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <p className="text-sm text-muted-foreground mb-3">持倉狀況</p>
+        <p className="text-sm text-muted-foreground mb-3">{t("profile.holdings")}</p>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-muted-foreground">持幣總量</p>
+            <p className="text-xs text-muted-foreground">{t("profile.balance")}</p>
             <p className="font-semibold text-foreground">{p.jiucai.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">JIUCAI</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">鎖倉中</p>
+            <p className="text-xs text-muted-foreground">{t("profile.locked")}</p>
             <p className="font-semibold text-amber-500">{p.locked.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground">解鎖剩 {p.unlockDays} 天</p>
+            <p className="text-xs text-muted-foreground">{t("profile.unlockLeft", { days: p.unlockDays })}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">持幣排名</p>
+            <p className="text-xs text-muted-foreground">{t("profile.rank")}</p>
             <p className="font-semibold text-primary">#{p.rank}</p>
-            <p className="text-xs text-muted-foreground">共 {p.totalHolders} 人 · {p.rankMultiplier}</p>
+            <p className="text-xs text-muted-foreground">/ {p.totalHolders} · {p.rankMultiplier}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">持倉天數</p>
-            <p className="font-semibold text-foreground">{p.holdDays} 天</p>
-            <p className="text-xs text-muted-foreground">時間加權 {p.timeMultiplier}</p>
+            <p className="text-xs text-muted-foreground">{t("profile.holdDays")}</p>
+            <p className="font-semibold text-foreground">{p.holdDays} {t("common.days")}</p>
+            <p className="text-xs text-muted-foreground">{t("profile.timeWeight")} {p.timeMultiplier}</p>
           </div>
         </div>
       </div>
 
-      {/* Prize stats */}
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <p className="text-sm text-muted-foreground mb-3">中獎紀錄</p>
+        <p className="text-sm text-muted-foreground mb-3">{t("profile.prizeRecord")}</p>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-muted-foreground">累計獲得 USDT</p>
+            <p className="text-xs text-muted-foreground">{t("profile.totalUsdt")}</p>
             <p className="font-semibold text-primary">${p.totalPrizeUsdt}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">累計獲得 JIUCAI</p>
+            <p className="text-xs text-muted-foreground">{t("profile.totalJiucai")}</p>
             <p className="font-semibold text-foreground">{p.totalPrizeJiucai.toLocaleString()}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">成功邀請</p>
-            <p className="font-semibold text-primary">{p.referralSuccess} 人</p>
-            <p className="text-xs text-muted-foreground">共邀請 {p.referrals} 人</p>
+            <p className="text-xs text-muted-foreground">{t("profile.successInvite")}</p>
+            <p className="font-semibold text-primary">{p.referralSuccess} {t("common.people")}</p>
+            <p className="text-xs text-muted-foreground">{t("profile.totalInvite", { count: p.referrals })}</p>
           </div>
         </div>
       </div>
 
-      {/* Cards */}
       <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground">持有卡牌</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">開啟後下次抽獎自動生效</p>
+          <h2 className="text-sm font-semibold text-foreground">{t("profile.cards")}</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">{t("profile.cardsHint")}</p>
         </div>
         <div className="divide-y divide-border">
           {cards.map((card) => (
@@ -101,10 +95,7 @@ const Profile = () => {
                 <p className="text-sm font-semibold text-foreground">{card.type} ×{card.qty}</p>
                 <p className="text-xs text-muted-foreground">{card.desc}</p>
               </div>
-              <Switch
-                checked={card.enabled}
-                onCheckedChange={() => toggle(card.id)}
-              />
+              <Switch checked={card.enabled} onCheckedChange={() => toggle(card.id)} />
             </div>
           ))}
         </div>
