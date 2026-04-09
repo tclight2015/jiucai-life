@@ -19,11 +19,36 @@ const mockWinners = [
   { wallet: "0x2233…aa55", amount: "$5 USDT",  jiucai: "100,000 JIUCAI", date: "2026-03-28", img: person1, note: "繼續持幣，繼續中！" },
 ];
 
+const howStepsZh = [
+  "確認你的錢包曾收到韭菜翻身日記的獎金",
+  "截圖你的收款紀錄",
+  "上傳截圖 + 填入錢包地址",
+  "系統自動驗證鏈上紀錄",
+  "驗證通過，獲得額外加碼獎勵",
+];
+const howStepsEn = [
+  "Confirm: Ensure your wallet has received a payout from the Revenge Diary.",
+  "Capture: Screenshot your receipt/transaction record.",
+  "Upload: Submit your screenshot + enter your wallet address.",
+  "Verify: Our system automatically scans the on-chain data.",
+  "Bonus: Once verified, receive an exclusive bonus reward.",
+];
+
 const Recovery = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+  const howSteps = isEn ? howStepsEn : howStepsZh;
+
   return (
     <PageLayout>
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      {/* ── Title + Desc ── */}
+      <div className="mb-5">
+        <h2 className="text-base font-bold text-foreground mb-1">{t("recovery.title")}</h2>
+        <p className="text-sm text-muted-foreground leading-relaxed">{t("recovery.desc")}</p>
+      </div>
+
+      {/* ── Stats ── */}
+      <div className="grid grid-cols-2 gap-3 mb-5">
         <div className="rounded-xl border border-border bg-card p-4 shadow-sm text-center">
           <p className="text-2xl font-bold text-primary">26</p>
           <p className="text-xs text-muted-foreground mt-1">{t("recovery.helped")}</p>
@@ -33,6 +58,46 @@ const Recovery = () => {
           <p className="text-xs text-muted-foreground mt-1">{t("recovery.totalReturned")}</p>
         </div>
       </div>
+
+      {/* ── 如何上傳 ── */}
+      <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
+        <h2 className="text-sm font-semibold text-foreground mb-3">{t("recovery.howTitle")}</h2>
+        <div className="space-y-2">
+          {howSteps.map((s, i) => (
+            <div key={i} className="flex gap-3">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-[10px] font-bold text-primary">{i + 1}</span>
+              <p className="text-sm text-foreground leading-relaxed">{s}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 重要說明 ── */}
+      <div className="rounded-xl border border-amber-600/30 bg-amber-950/20 p-5 shadow-sm mb-5">
+        <h2 className="text-sm font-semibold text-amber-400 mb-2">{t("recovery.importantTitle")}</h2>
+        {isEn ? (
+          <div className="space-y-1 text-sm text-amber-400/80">
+            <p>• One-Time Bonus: This verification reward is limited to once per wallet — forever.</p>
+            <p>• The Spotlight is Yours: This is your "Debut Show." Don't waste your shot.</p>
+          </div>
+        ) : (
+          <div className="space-y-1 text-sm text-amber-400/80">
+            <p>• 此加碼獎勵每個錢包地址終身只能領一次</p>
+            <p>• 這是你的「出道秀」，把握機會</p>
+          </div>
+        )}
+      </div>
+
+      {/* ── 截圖牆 ── */}
+      <div className="mb-3">
+        <h2 className="text-sm font-semibold text-foreground mb-1">{t("recovery.wallTitle")}</h2>
+        {isEn ? (
+          <p className="text-xs text-muted-foreground">Each card features: Wallet Address · Winning Amount · Winning Date · Degen's Testimonial. Click "Verify Original" to check the TX Hash on-chain.</p>
+        ) : (
+          <p className="text-xs text-muted-foreground">每張卡片顯示：錢包地址（縮寫）· 中獎金額 · 中獎日期 · 用戶感言。點「查看原圖」可驗證真實性。</p>
+        )}
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
         {mockWinners.map((w, i) => (
           <div key={i} className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
@@ -43,6 +108,7 @@ const Recovery = () => {
               <p className="text-xs text-muted-foreground">{w.jiucai}</p>
               {w.note && <p className="text-xs text-foreground/70 mt-1.5 italic">「{w.note}」</p>}
               <p className="text-xs text-muted-foreground/60 mt-1">{w.date}</p>
+              <button className="mt-2 text-xs font-semibold text-primary hover:underline">{t("recovery.verifyBtn")}</button>
             </div>
           </div>
         ))}

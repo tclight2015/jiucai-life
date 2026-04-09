@@ -76,10 +76,14 @@ const zhTW = {
 
   // ─── 行事曆 ───────────────────────────────────────────
   calendar: {
-    upcoming: "即將開獎（UTC+8）",
-    history: "歷史開獎",
+    intro: "提前看好，準備好你的卡牌。中午12點前加碼都還來得及。",
+    upcoming: "本期開獎資訊（UTC+8）",
+    flowTitle: "開獎流程說明",
+    boostTitle: "加碼提醒",
+    boostDesc: "持幣越多，排名越前，權重越高。開獎當天中午12點掃描前加碼都有效。不要賣幣，賣了就失去資格。",
+    history: "歷史開獎紀錄",
     winnerCount: "中獎 {{count}} 人",
-    walletQuery: "查詢錢包中獎記錄",
+    walletQuery: "錢包查詢",
     walletPlaceholder: "輸入錢包地址 0x…",
     noRecord: "此地址無中獎記錄",
     qualify: "參與資格",
@@ -87,21 +91,31 @@ const zhTW = {
 
   // ─── 規則 ─────────────────────────────────────────────
   rules: {
-    formula: "權重公式",
+    noRegister: "無需報名，持幣即能參加",
+    formula: "最終權重公式",
     formulaDesc: "每位持幣者的抽獎票數由以下公式決定：",
-    formulaExpr: "票數 = 基礎票數 × 排名加權 × 時間加權 × 卡牌加權",
-    formulaNote: "基礎票數固定為 100 票。最終票數愈多，抽中機率愈高。",
-    rankTable: "持幣排名加權（共 12 級）",
+    formulaExpr: "最終權重 = 基礎票數 × 持幣排名加權 × 時間加權 × 權重翻倍卡加權",
+    formulaNote: "基礎票數固定為 1。最終票數愈多，抽中機率愈高。",
+    rankTable: "持幣排名加權",
     timeTable: "持倉時間加權",
     cards: "卡牌加權",
-    cardsDesc: "持有特殊卡牌可進一步放大票數，開啟後下次抽獎自動生效。",
+    cardsDesc: "持有特殊卡牌可進一步放大票數，開啟後下次抽獎自動生效。多張卡牌效果相乘計算，例如同時開啟兩張 ×2 卡 = 卡牌加權 4x。",
     examples: "計算範例",
-    modules: "五大功能模組",
+    activityModules: "抽獎活動模組",
+    randomness: "隨機性說明",
+    randomnessDesc: "使用指定區塊 hash 作為隨機種子。開獎前公告區塊號，任何人可自行到鏈上驗證結果。",
+    doNotSell: "千萬不要賣幣",
+    doNotSellDesc: "這是衷心建議，以後你會感謝自己。你現在賣掉的，可能是下週的獎金。",
   },
 
   // ─── 索幣 ─────────────────────────────────────────────
   claim: {
+    headline: "被割過？來領你的第一批韭菜幣",
+    headlineDesc: "上傳你的虧損截圖，賠越多給越多。這是我們的誠意，也是你加入的門票。",
     tiers: "索幣分級",
+    stepsTitle: "索幣流程",
+    termsTitle: "注意事項",
+    faqTitle: "常見問題",
     form: "提交申請",
     dropzone: "拖放截圖至此，或點擊選擇",
     dropzoneHint: "支援 JPG / PNG",
@@ -121,30 +135,50 @@ const zhTW = {
 
   // ─── 回血牆 ───────────────────────────────────────────
   recovery: {
+    title: "我發誓，我正回血中",
+    desc: "每一張截圖，都是我們打出去的真實證明。被別人割的，我們還給你。定期清空獎金池，是韭菜翻身日記的承諾。",
     helped: "已幫助人數",
     totalReturned: "累計還回 USDT",
+    howTitle: "如何上傳",
+    importantTitle: "重要說明",
+    wallTitle: "截圖牆",
+    verifyBtn: "查看原圖",
   },
 
   // ─── 吐槽區 ───────────────────────────────────────────
   chat: {
+    title: "說吧，這裡不審查",
+    subtitle: "獎金太少也可以說。罵交易所也可以說。反正這裡就是讓你說的地方。",
+    rulesTitle: "發言規則",
+    officialTag: "🌿官方",
     placeholder: "說出你的心聲…",
   },
 
   // ─── 排行榜 ───────────────────────────────────────────
   leaderboard: {
-    subtitle: "累計中獎金額排行，狗屎運比拚",
+    title: "誰的狗屎運最旺？",
+    subtitle: "累積領取獎金最多的人排行。不靠技術，不靠背景，純粹靠運氣和堅持持倉。",
     winCount: "中獎 {{count}} 次",
+    yourRank: "你的排名",
+    yourRankDesc: "連結錢包後顯示個人排名",
+    reminder: "持幣才有資格。賣了就出局。",
   },
 
   // ─── 代幣 ─────────────────────────────────────────────
   token: {
     contract: "合約地址",
-    info: "代幣資訊",
-    allocation: "代幣分配",
-    links: "相關連結",
+    info: "基本資訊",
+    taxTitle: "交易稅",
+    taxDesc: "稅收用途：2% 進獎池 · 2% 進流動池 · 2% 項目運營基金",
+    allocation: "發行分配",
+    vesting: "鎖倉規則",
+    links: "交易",
+    declaration: "特別聲明",
+    declarationDesc: "韭菜翻身日記永不上 CEX\n因為 CEX 就是割你的地方",
     fields: {
-      name: "名稱",
-      symbol: "符號",
+      name: "幣名",
+      symbol: "代號",
+      chain: "發行鏈",
       supply: "總發行量",
       buyTax: "買入稅",
       sellTax: "賣出稅",
@@ -162,8 +196,8 @@ const zhTW = {
     lpLockSection: {
       title: "流動池鎖定",
       provider: "Uncx Network",
-      duration: "鎖定 1 年",
-      desc: "LP Token 已透過 Uncx 鎖定，創辦人在鎖定期間無法提前撤走流動池，任何人可自行鏈上驗證。",
+      duration: "鎖定至（部署後填入）",
+      desc: "LP Token 已透過 Uncx 鎖定，創辦人在鎖定期間無法提前撤走流動池，這是防止 Rug Pull 的最直接證明，任何人可自行鏈上驗證。",
       viewLock: "查看鎖倉紀錄",
     },
   },
@@ -192,10 +226,9 @@ const zhTW = {
   // ─── 韭菜宣言 ─────────────────────────────────────────
   about: {
     hero: "韭菜宣言",
-    heroSub: "一個被割過的人，寫給每一個被割過的人",
-    storyTitle: "我的故事",
-    missionTitle: "項目理念",
-    pledgeTitle: "創辦人承諾",
+    tagline: "被別人割的，我們還給你",
+    noRegister: "無需報名，持幣即能參加",
+    pledgeTitle: "我們的承諾",
     quote: "「我不保證這個幣會漲，但我保證這個項目不會消失。」",
     founder: "— 韭菜翻身日記 創辦人",
   },

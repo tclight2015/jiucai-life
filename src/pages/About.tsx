@@ -1,59 +1,93 @@
 import { useTranslation } from "react-i18next";
 import PageLayout from "@/components/PageLayout";
-import charSide from "@/assets/char-side.png";
 
 const About = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
   return (
     <PageLayout>
-      <div className="flex flex-col items-center mb-8">
-        <img src={charSide} alt="founder" className="w-32 h-32 object-contain mb-4" />
-        <h2 className="text-xl font-bold text-foreground">{t("about.hero")}</h2>
-        <p className="text-sm text-muted-foreground mt-1">{t("about.heroSub")}</p>
+      {/* ── Hero ── */}
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-foreground mb-1">{t("about.hero")}</h2>
+        <p className="text-base font-semibold text-foreground/80">{t("about.tagline")}</p>
+        <p className="text-sm font-bold text-red-400 mt-2">{t("about.noRegister")}</p>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <h3 className="text-sm font-bold text-foreground mb-3">{t("about.storyTitle")}</h3>
-        <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-          <p>2021 年，我把積蓄投進了一個「潛力幣」，那個幣的合約方消失了。我損失了好幾萬。</p>
-          <p>我沒有哭，但我很久沒睡好覺。我一直在想：如果有人能讓我感覺到「有人在乎」，會不會就沒那麼難受。</p>
-          <p>所以我做了這個項目。我沒有辦法把你的錢還回來，但我可以把自己賺到的一部分，分給那些還在這裡撐著的人。</p>
-          <p>這裡不是騙局，不是跑路的前兆。我的持幣全部鎖倉，賣出的每一分稅金都會進獎金池。你可以看到，可以驗證，可以罵我。</p>
+      {/* ── 主文 ── */}
+      {isEn ? (
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>Stop second-guessing — this isn't another scam.</p>
+          <p>The prize pool is fueled by transaction taxes. We're redirecting the capital flow straight back into your wallet.</p>
+          <p>Trust the code. This is your ultimate shot at Wealth Redistribution.</p>
+          <p>The real world is rigged; here, the smart contract is fair.</p>
+          <p>The floor pumps, the rewards stack, and as long as you're holding, you're in the game.</p>
+          <p>Don't just watch others moon — be the one they envy.</p>
+          <p>The more Degens join the fray, the faster the pot overflows.</p>
+          <p>Your mission is simple: Shill, Onboard, and Chill. Then, simply wait for that Telegram ping.</p>
+          <p>The selection alert. The transfer confirmation. Check your balance. Feel the rush.</p>
+          <p>The market rugged you. We're healing you. Hold to flip your life. Real USDT, sent straight to you. This isn't a roadmap pipe dream; it's an on-chain reality.</p>
+          <p>Join "The Degen's Revenge Diary" — it's time to recover your losses.</p>
         </div>
-      </div>
+      ) : (
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
+          <p>不要懷疑，這裡沒有欺詐。</p>
+          <p>獎池來自交易稅，讓錢再次回流到你的口袋。</p>
+          <p>相信這裡，這是一次財富重分配的機會。現實很無情，這裡很公平。</p>
+          <p>幣價會漲、獎金會有、只要持幣就有機會。不用羨慕別人的好運，自己就會是見證。</p>
+          <p>越多人加入、參與，獎池累積越快越滿。你唯一要做的就是動起來，推薦更多人加入，接著就是等待。</p>
+          <p>等待 Telegram 的入選通知。等待 Telegram 的打幣通知。然後確認帳戶入帳。</p>
+          <p>幣圈割你，我們補你。持幣就能翻身，真的 U 打給你。這不只是承諾，更有鏈上紀錄。</p>
+          <p>來「韭菜翻身日記」，讓你回血。</p>
+        </div>
+      )}
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm mb-4">
-        <h3 className="text-sm font-bold text-foreground mb-3">{t("about.missionTitle")}</h3>
-        <div className="space-y-3">
-          {[
-            { icon: "🫀", title: "真實的共鳴", desc: "這裡不賣夢想，只說實話。被割過的感受，我懂。" },
-            { icon: "🔒", title: "透明可驗證", desc: "合約公開，創辦人持幣鎖倉，獎池資金來源清晰。" },
-            { icon: "💸", title: "持幣就有機會", desc: "每週抽獎，持幣愈久愈多，回血機率愈高。" },
-            { icon: "🤝", title: "社群優先", desc: "所有功能以幫助韭菜回血為核心出發，不是為了炒作。" },
-          ].map((item) => (
-            <div key={item.title} className="flex gap-3">
-              <span className="text-xl">{item.icon}</span>
-              <div>
-                <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+      {/* ── 承諾 ── */}
+      <div className="rounded-xl border border-primary/40 bg-primary/5 p-5 shadow-sm mb-4">
+        <h3 className="text-sm font-bold text-primary mb-4">{t("about.pledgeTitle")}</h3>
+        {isEn ? (
+          <div className="space-y-4">
+            {[
+              { icon: "🚫", title: "Zero CEX Ambitions", desc: "Centralized exchanges are slaughterhouses. We refuse to feed you to the wolves." },
+              { icon: "♾️", title: "Non-Stop Giveaways", desc: "Draining the prize pool back to the community isn't a goal — it's our sacred vow." },
+              { icon: "🔍", title: "On-Chain Absolute Transparency", desc: "Every payout comes with a TX Hash. Don't trust, verify." },
+              { icon: "💰", title: "Real Yield, No Ponzi", desc: "The pool scales with volume, not thin air. Every reward has a documented source and a verified destination." },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-3">
+                <span className="text-xl">{item.icon}</span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {[
+              { icon: "🚫", title: "永不上 CEX（中心化交易所）", desc: "CEX 是割你的地方，我們不會把你送進去。" },
+              { icon: "♾️", title: "持續送錢", desc: "定期清空獎金池，是韭菜翻身日記的承諾。" },
+              { icon: "🔍", title: "鏈上透明", desc: "所有打款都有交易 hash，任何人可自行驗證。" },
+              { icon: "💰", title: "獎金池來自交易稅", desc: "不是龐氏，不是空氣，每一筆獎金都有真實來源與去處。" },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-3">
+                <span className="text-xl">{item.icon}</span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="rounded-xl border border-primary/40 bg-primary/5 p-5 shadow-sm">
-        <h3 className="text-sm font-bold text-primary mb-3">{t("about.pledgeTitle")}</h3>
-        <div className="space-y-2 text-sm text-foreground/80 leading-relaxed">
-          <p>✦ 創辦人持有的 JIUCAI 全數鎖倉，不提前解鎖</p>
-          <p>✦ 合約稅收的 100% 進入社群獎金池</p>
-          <p>✦ 每週開獎，結果公開，不黑箱</p>
-          <p>✦ 如果我跑路，合約可查，鏈上為憑</p>
-        </div>
-        <div className="mt-4 border-t border-primary/20 pt-4">
-          <p className="text-xs text-muted-foreground italic">{t("about.quote")}</p>
-          <p className="text-xs text-primary font-semibold mt-1">{t("about.founder")}</p>
-        </div>
+      {/* ── 底部 quote ── */}
+      <div className="rounded-xl border border-border bg-card p-5 shadow-sm text-center">
+        <p className="text-sm font-bold text-foreground">
+          {isEn ? '"EVERYONE WHO GOT RUGGED IS HERE."' : t("about.quote")}
+        </p>
+        <p className="text-xs text-primary font-semibold mt-2">{t("about.founder")}</p>
       </div>
     </PageLayout>
   );

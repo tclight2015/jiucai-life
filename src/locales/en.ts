@@ -76,10 +76,14 @@ const en = {
 
   // ─── 行事曆 ───────────────────────────────────────────
   calendar: {
-    upcoming: "Upcoming Draws (UTC+8)",
-    history: "Draw History",
+    intro: "Plan ahead and stack your cards. You have until 12:00 PM (Noon) on draw days to boost your position.",
+    upcoming: "Current Round Info (UTC+8)",
+    flowTitle: "The Draw Roadmap",
+    boostTitle: "Boost Your Odds",
+    boostDesc: "The more you hold, the higher your rank, the bigger your Weighting Multiplier. Any buys made before the 12:00 PM Snapshot on draw days are valid. DO NOT SELL. Selling your bags results in immediate disqualification.",
+    history: "Historical Records",
     winnerCount: "{{count}} winners",
-    walletQuery: "Check Wallet Win History",
+    walletQuery: "Wallet Checker",
     walletPlaceholder: "Enter wallet address 0x…",
     noRecord: "No win records for this address",
     qualify: "Eligibility",
@@ -87,21 +91,31 @@ const en = {
 
   // ─── 規則 ─────────────────────────────────────────────
   rules: {
-    formula: "Weight Formula",
+    noRegister: "No Registration Required. Hold to Enter.",
+    formula: "The Final Weight Formula",
     formulaDesc: "Each holder's lottery tickets are calculated by:",
-    formulaExpr: "Tickets = Base × Rank Weight × Time Weight × Card Weight",
-    formulaNote: "Base tickets = 100. More tickets = higher win probability.",
-    rankTable: "Holder Rank Weight (12 Tiers)",
-    timeTable: "Hold Time Weight",
-    cards: "Card Bonuses",
-    cardsDesc: "Special cards amplify your tickets. Activate before the next draw.",
+    formulaExpr: "FinalWeight = BaseTickets × TierMultiplier × LoyaltyMultiplier × CardBoost",
+    formulaNote: "Base tickets = 1. More tickets = higher win probability.",
+    rankTable: "Holding Tier Multipliers",
+    timeTable: "Loyalty (Holding Time) Multiplier",
+    cards: "Inventory Card Boosts",
+    cardsDesc: "Cards can be activated on your Profile page. They are consumed automatically after each raffle. Stay tuned for new card types. Multiple cards stack multiplicatively — e.g. two ×2 cards = 4x card weight.",
     examples: "Calculation Examples",
-    modules: "5 Core Features",
+    activityModules: "Raffle Modules",
+    randomness: "Verifiable Randomness",
+    randomnessDesc: "We use Block Hashes as our random seed. The specific block number is announced before the draw. Anyone can verify the results on-chain. Don't Trust, Verify.",
+    doNotSell: "DO NOT SELL.",
+    doNotSellDesc: "Consider this a friendly warning; your future self will thank you. The bags you dump today could have been next week's jackpot.",
   },
 
   // ─── 索幣 ─────────────────────────────────────────────
   claim: {
+    headline: "Been Rugged or Dumped On? Claim Your JIUCAI Airdrop Now.",
+    headlineDesc: "Upload your loss screenshots — the bigger the REKKT, the bigger the bag. This is our way of making it right. This is your ticket to the revolution.",
     tiers: "Claim Tiers",
+    stepsTitle: "How to Claim",
+    termsTitle: "Key Terms",
+    faqTitle: "FAQ",
     form: "Submit Application",
     dropzone: "Drop screenshot here, or click to select",
     dropzoneHint: "JPG / PNG supported",
@@ -121,30 +135,50 @@ const en = {
 
   // ─── 回血牆 ───────────────────────────────────────────
   recovery: {
+    title: "I SWEAR, I'M RECOVERING.",
+    desc: "Every screenshot is proof. Every payout is real. What others rugged, we return. Draining the prize pool back to you isn't just a goal — it's the core mission of The Degen's Revenge Diary.",
     helped: "People Helped",
     totalReturned: "Total USDT Returned",
+    howTitle: "HOW TO SUBMIT",
+    importantTitle: "IMPORTANT NOTES",
+    wallTitle: "THE WALL OF RECOVERY",
+    verifyBtn: "Verify Original",
   },
 
   // ─── 吐槽區 ───────────────────────────────────────────
   chat: {
+    title: "Speak Up. No Censorship Here.",
+    subtitle: "Complaining about small prize pools? Say it. Want to roast the centralized exchanges? Say it. Whatever is on your mind, this is your safe haven.",
+    rulesTitle: "Rules of Engagement",
+    officialTag: "🌿 OFFICIAL",
     placeholder: "Say what's on your mind…",
   },
 
   // ─── 排行榜 ───────────────────────────────────────────
   leaderboard: {
-    subtitle: "Ranked by total winnings — pure luck edition",
+    title: "Who Has the God-Tier Luck?",
+    subtitle: "Ranking the legends who have claimed the most rewards. No TA needed. No insider connections. Just pure luck and the iron will to HODL.",
     winCount: "{{count}} wins",
+    yourRank: "YOUR RANKING",
+    yourRankDesc: "Connect your wallet to see your position",
+    reminder: "Hold to stay eligible. If you dump, you're out of the game.",
   },
 
   // ─── 代幣 ─────────────────────────────────────────────
   token: {
     contract: "Contract Address",
-    info: "Token Info",
+    info: "General Information",
+    taxTitle: "Transaction Tax",
+    taxDesc: "Tax Allocation: 2% to Prize Pool · 2% to Liquidity Pool (LP) · 2% to Operational Fund",
     allocation: "Token Allocation",
-    links: "Links",
+    vesting: "Vesting & Lock-up",
+    links: "Trading & Links",
+    declaration: "Special Declaration",
+    declarationDesc: "$JIUCAI will NEVER list on a CEX.\nCentralized Exchanges are nothing but slaughterhouses — we refuse to feed you to the wolves.",
     fields: {
-      name: "Name",
+      name: "Token Name",
       symbol: "Symbol",
+      chain: "Network",
       supply: "Total Supply",
       buyTax: "Buy Tax",
       sellTax: "Sell Tax",
@@ -162,8 +196,8 @@ const en = {
     lpLockSection: {
       title: "Liquidity Lock",
       provider: "Uncx Network",
-      duration: "Locked for 1 Year",
-      desc: "LP tokens are locked via Uncx. The founder cannot withdraw liquidity during the lock period. Verifiable on-chain by anyone.",
+      duration: "Locked until: (to be filled after deployment)",
+      desc: "The Liquidity Pool (LP) is locked, meaning the founder cannot pull the liquidity. This is the ultimate Rug-Proof guarantee. Anyone can verify this on-chain.",
       viewLock: "View Lock Record",
     },
   },
@@ -192,10 +226,9 @@ const en = {
   // ─── 韭菜宣言 ─────────────────────────────────────────
   about: {
     hero: "Our Manifesto",
-    heroSub: "Written by someone who got cut, for everyone who got cut",
-    storyTitle: "My Story",
-    missionTitle: "Our Mission",
-    pledgeTitle: "Founder's Pledge",
+    tagline: "Reclaiming What Was Rugged. We're Paying You Back.",
+    noRegister: "No Whitelist. No Bullshit. Just Hold to Earn.",
+    pledgeTitle: "Our Manifesto",
     quote: '"I can\'t promise the price will go up. But I promise this project won\'t disappear."',
     founder: "— Jiucai Life Founder",
   },
