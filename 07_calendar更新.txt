@@ -1,0 +1,86 @@
+# 抽獎行事曆
+
+## 說明
+提前看好，準備好你的卡牌。
+中午12點前加碼都還來得及。
+
+---
+
+## 本期開獎資訊
+
+當期獎池：（動態顯示）
+下次開獎：（動態顯示）
+本次預計送出：（動態顯示）
+本次參與資格：（動態顯示）
+
+---
+
+## 開獎流程說明
+
+1. 前一天晚上：預告推播，附近三日幣價漲跌幅
+2. 開獎當天中午12點：推播通知符合資格的人
+3. 下午6點前：啟用你的卡牌
+4. 晚上8點：開獎
+5. 開獎後：中獎者收到個人通知
+
+---
+
+## 加碼提醒
+
+持幣越多，排名越前，權重越高。
+開獎當天中午12點掃描前加碼都有效。
+不要賣幣，賣了就失去資格。
+
+---
+
+## 歷史開獎紀錄
+
+（顯示歷史所有開獎紀錄）
+
+---
+
+## 錢包查詢
+
+輸入任何錢包地址，查詢完整中獎歷史。
+
+RAFFLE CALENDAR
+Overview
+
+Plan ahead and stack your cards.
+
+You have until 12:00 PM (Noon) on draw days to boost your position.
+Current Round Info
+
+    Current Prize Pool: [Dynamic Display]
+
+    Next Draw: [Dynamic Display]
+
+    Estimated Payout: [Dynamic Display]
+
+    Entry Requirements: [Dynamic Display]
+
+The Draw Roadmap
+
+    The Night Before: Warm-up notification + Analysis of the past 3 days' price action.
+
+    Draw Day @ 12:00 PM (CST, UTC+8): Eligibility Snapshot. Qualified holders will receive a notification.
+
+    By 6:00 PM(CST): Deadline to activate your Boost Cards.
+
+    8:00 PM(CST): The Big Reveal. The draw goes live.
+
+    Post-Draw: Winners receive personalized notifications immediately.
+
+Boost Your Odds
+
+The more you hold, the higher your rank, the bigger your Weighting Multiplier.
+
+Any buys made before the 12:00 PM Snapshot on draw days are valid.
+
+DO NOT SELL. Selling your bags results in immediate disqualification.
+Historical Records
+
+(Browse all past winning results and payout history)
+Wallet Checker
+
+Enter any wallet address to view its full winning history and payout status.

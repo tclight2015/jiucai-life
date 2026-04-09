@@ -1,0 +1,170 @@
+# 抽獎規則
+
+
+無需報名，持幣即能參加（紅字）
+
+---
+
+## 最終權重公式
+
+最終權重 = 基礎票數 × 持幣排名加權 × 時間加權 × 權重翻倍卡加權
+
+---
+
+## 持幣排名加權表
+
+持幣越多、排名越前，權重越高。
+
+
+| 持幣排名 | 加權倍數 |
+|---------|---------|
+| 前 5% | 5.0x |
+| 5–10% | 4.0x |
+| 10–20% | 3.2x |
+| 20–30% | 2.6x |
+| 30–40% | 2.1x |
+| 40–50% | 1.7x |
+| 50–60% | 1.4x |
+| 60–70% | 1.2x |
+| 70–80% | 1.1x |
+| 80–85% | 1.05x |
+| 85–90% | 1.02x |
+| 90–100% | 1.0x |
+
+---
+
+## 持倉時間加權
+
+帳戶有幣就持續累積時間，賣光歸零重算，部分賣出不影響計時。
+
+| 持倉時間 | 時間加權 |
+|---------|---------|
+| 不到 7 天 | 0.5x |
+| 7–30 天 | 1.0x |
+| 30–60 天 | 1.5x |
+| 超過 60 天 | 2.0x |
+
+---
+
+## 卡牌加權
+
+| 卡牌類型 | 效果 |
+|---------|------|
+| 權重翻倍卡 | 提升抽中機率 |
+| 獎金翻倍卡 | 抽中後獎金倍增 |
+| 幸運卡 | 額外增加票數 |
+
+卡牌可在個人資料頁啟用，每次抽獎自動套用後消耗。不定期更新卡牌種類。
+
+---
+
+## 計算範例
+
+老韭菜（持幣前20%，持倉45天，使用2張權重2x卡）：
+最終權重 = 1 × 3.2 × 1.5 × 4= 19.2 票
+
+新韭菜（持幣後50%，持倉3天，無卡牌）：
+最終權重 = 1 × 1.0 × 0.5 × 1 = 0.5 票
+
+差距約 38 倍。長期持倉 + 提升排名 + 累積卡牌，三件事缺一不可。
+
+---
+
+## 活動模組說明
+
+不定期規劃各種抽獎模組，照顧各類族群：
+譬如
+- 大戶局：持倉前50%參與
+- 最慘局：虧損前50%參與，補貼損失最重的人
+- 小韭菜局：持倉後50%參與，照顧小散戶
+- 全民普抽：所有持倉者參與
+- 自訂局：特殊活動專用
+
+---
+
+## 隨機性說明
+
+使用指定區塊 hash 作為隨機種子。
+開獎前公告區塊號，任何人可自行到鏈上驗證結果。
+
+---
+
+## 千萬不要賣幣
+
+這是衷心建議，以後你會感謝自己。
+你現在賣掉的，可能是下週的獎金。
+
+
+RAFFLE RULES(粗體)
+
+No Registration Required. Hold to Enter.(粗體)
+The Final Weight Formula
+FinalWeight=BaseTickets×TierMultiplier×LoyaltyMultiplier×CardBoost
+
+Holding Tier Multipliers(粗體)
+
+The more you hold, the higher your rank, the bigger your edge.
+Holding Rank	Multiplier
+Top 5%	5.0x
+5–10%	4.0x
+10–20%	3.2x
+20–30%	2.6x
+30–40%	2.1x
+40–50%	1.7x
+50–60%	1.4x
+60–70%	1.2x
+70–80%	1.1x
+80–85%	1.05x
+85–90%	1.02x
+90–100%	1.0x
+
+Loyalty (Holding Time) Multiplier(粗體)
+
+Time is money. Holding starts the clock. Selling out resets it to zero; partial sells do not affect your timer.
+Duration	Multiplier
+< 7 Days	0.5x
+7–30 Days	1.0x
+30–60 Days	1.5x
+> 60 Days	2.0x
+
+Inventory Card Boosts(粗體)
+Card Type	Effect
+Weight Boost Card	Increases your winning probability
+Prize Doubler	Multiplies your reward if you win
+Lucky Card	Grants bonus tickets
+
+Cards can be activated on your Profile page. They are consumed automatically after each raffle. Stay tuned for new card types.
+
+Calculation Examples(粗體)
+
+The Diamond Hand (Top 20% Holder, 45 days held, used 2x Weight Boosts):
+1×3.2×1.5×4=19.2 Tickets
+
+The Paper Hand (Bottom 50% Holder, 3 days held, no cards):
+1×1.0×0.5×1=0.5 Tickets
+
+The Gap: ~38x Difference. Long-term holding, climbing the ranks, and stacking cards are your keys to winning.
+
+Raffle Modules(粗體)
+
+We launch various modules to ensure every Degen gets a fair shot:
+
+    Whale War: Top 50% holders only.
+
+    The Rekkt Relief: Bottom 50% in PnL (Losses)—we compensate those hit hardest by the market.
+
+    Shrimp Pool: Bottom 50% holders only—protecting the small players.
+
+    The Grand Raffle: Open to all holders.
+
+    Custom Drops: Exclusive special events.
+
+Verifiable Randomness(粗體)
+
+We use Block Hashes as our random seed.
+The specific block number is announced before the draw. Anyone can Verify the results on-chain. Don't Trust, Verify.
+
+DO NOT SELL.(粗體)
+
+Consider this a friendly warning; your future self will thank you.
+The bags you dump today could have been next week's jackpot.

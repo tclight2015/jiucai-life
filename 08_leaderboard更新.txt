@@ -1,0 +1,54 @@
+# 狗屎運獎金排行榜
+
+## 標題
+誰的狗屎運最旺？
+
+## 說明
+累積領取獎金最多的人排行。
+不靠技術，不靠背景，純粹靠運氣和堅持持倉。
+
+---
+
+## 排行榜
+
+（顯示累積獲獎金額排行）
+
+| 排名 | 錢包地址 | 累積獎金 |
+|------|---------|---------|
+| 🥇 1 | 0x... | $XXX USDT |
+| 🥈 2 | 0x... | $XXX USDT |
+| 🥉 3 | 0x... | $XXX USDT |
+...
+
+---
+
+## 你的排名
+
+（連結錢包後顯示個人排名）
+
+---
+
+## 底部提醒
+持幣才有資格。賣了就出局。
+
+THE "INSANE LUCK" LEADERBOARD
+Who Has the God-Tier Luck?
+Overview
+
+Ranking the legends who have claimed the most rewards.
+
+No TA needed. No insider connections. Just pure luck and the iron will to HODL.
+Leaderboard
+
+(Tracking the highest cumulative winnings)
+Rank	Wallet Address	Total Winnings
+🥇 1	0x...	$XXX USDT
+🥈 2	0x...	$XXX USDT
+🥉 3	0x...	$XXX USDT
+...		
+YOUR RANKING
+
+(Connect your wallet to see your position)
+A Friendly Reminder
+
+Hold to stay eligible. If you dump, you're out of the game.

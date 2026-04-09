@@ -1,0 +1,50 @@
+# 我有話要說
+
+## 標題
+說吧，這裡不審查
+
+
+獎金太少也可以說。
+罵交易所也可以說。
+反正這裡就是讓你說的地方。
+
+---
+
+## 發言規則
+
+- 連結錢包即可發言
+- 顯示錢包地址縮寫（例：0x7f3a）
+- 可回覆其他人的留言
+- 官方會不定期回覆置頂
+
+---
+
+## 留言區
+
+（Line 風格聊天串，即時更新）
+
+---
+
+## 官方回覆標示
+🌿官方 回覆會特別標示，自動置頂在該討論串。
+
+I HAVE SOMETHING TO SAY
+Speak Up. No Censorship Here.
+
+Complaining about small prize pools? Say it. Want to roast the centralized exchanges? Say it. Whatever is on your mind, this is your safe haven.
+Rules of Engagement
+
+    Connect to Chat: Simply link your wallet to post.
+
+    Anonymous but On-Chain: Displayed as a masked wallet address (e.g., 0x7f3a...).
+
+    Join the Thread: Reply to any Degen in the community.
+
+    Official Pings: The team will periodically reply and pin key discussions.
+
+THE DEGEN CHAT
+
+(Real-time live feed / Chat-style stream)
+Official Response Tag
+
+🌿 OFFICIAL: Team replies will be specially tagged and automatically pinned to the top of the thread.

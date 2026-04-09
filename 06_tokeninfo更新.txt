@@ -1,0 +1,142 @@
+# 代幣資訊
+
+## 基本資訊
+
+- 幣名：韭菜翻身日記
+- 代號：$JIUCAI
+- 發行鏈：Base
+- 合約地址：（部署後填入）
+- 總發行量：100億顆
+
+---
+
+## 交易稅
+
+- 買入：3%
+- 賣出：3%
+
+稅收用途：
+- 2% 進獎池
+- 2% 進流動池
+- 2% 項目運營基金
+
+---
+
+## 發行分配
+
+| 用途 | 比例 |
+|------|------|
+| 索幣區（社群） | 40% |
+| 流動池 | 20% |
+| 創辦人 | 25% |
+| 生態基金 | 10% |
+| 樂透獎池 | 5% |
+
+---
+
+## 鎖倉規則
+
+- 索幣領取：鎖倉 20 天，期間可正常參與抽獎
+- 創辦人：不鎖倉，用於支援獎池及索幣等營運支出
+
+---
+
+## 交易
+
+- Uniswap：（連結）
+- DEX Screener：（連結）
+- Basescan 合約：（連結）
+
+---
+
+## 合約安全
+
+- 合約已在 Basescan 開源驗證：
+- Tokensniffer 安全評分：
+
+任何人可自行查看合約原始碼，沒有隱藏邏輯。
+
+---
+
+## 流動池鎖定
+
+- LP token 已透過 Uncx 鎖定至：
+- 鎖定驗證連結：
+
+流動池鎖定代表創辦人無法提前撤走流動池，
+這是防止 Rug Pull 的最直接證明，任何人可自行驗證。
+
+---
+
+## 特別聲明
+
+韭菜翻身日記永不上 CEX
+因為 CEX 就是割你的地方
+
+
+TOKENOMICS
+General Information
+
+    Token Name: The Degen’s Revenge Diary
+
+    Symbol: $JIUCAI
+
+    Network: Base
+
+    Contract Address: (To be added after deployment)
+
+    Total Supply: 10,000,000,000 $JIUCAI
+
+Transaction Tax
+
+    Buy Tax: 3%
+
+    Sell Tax: 3%
+
+Tax Allocation:
+
+    2% to Prize Pool
+
+    2% to Liquidity Pool (LP)
+
+    2% to Operational Fund
+
+Token Allocation
+Allocation	Percentage
+Claim Area (Community Airdrop)	40%
+Liquidity Pool	20%
+Founder	25%
+Ecosystem Fund	10%
+Raffle Prize Pool	5%
+Vesting & Lock-up
+
+    Airdrop Claims: Locked for 20 days. Eligible for all raffles during the lock-up period.
+
+    Founder: Unlocked. Reserved for supporting the prize pool, claim airdrops, and operational costs.
+
+Trading & Links
+
+    Uniswap: [Link]
+
+    DEX Screener: [Link]
+
+    Basescan Contract: [Link]
+
+Contract Security
+
+    Verified Source Code: Open-source and verified on Basescan.
+
+    TokenSniffer Score: [Score]
+
+The smart contract is open for public audit. No hidden backdoors. No malicious logic. Don't Trust, Verify.
+Liquidity Lock
+
+    LP Tokens Locked via UNCX until: [Date]
+
+    Lock Verification Link: [Link]
+
+The Liquidity Pool (LP) is locked, meaning the founder cannot pull the liquidity. This is the ultimate Rug-Proof guarantee. Anyone can verify this on-chain.
+Special Declaration
+
+$JIUCAI will NEVER list on a CEX.
+Centralized Exchanges are nothing but slaughterhouses—we refuse to feed you to the wolves.
