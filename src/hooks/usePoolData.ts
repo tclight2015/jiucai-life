@@ -20,7 +20,7 @@ const fetchPoolData = async (): Promise<PoolData> => {
 };
 
 export const usePoolData = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["pool"],
     queryFn: fetchPoolData,
     refetchInterval: 30000, // 每 30 秒自動刷新
@@ -29,5 +29,6 @@ export const usePoolData = () => {
   return {
     usdt: data?.usdt ?? 10000,
     jiucai: data?.jiucai ?? 5000,
+    isLoading,
   };
 };

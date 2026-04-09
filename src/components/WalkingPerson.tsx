@@ -97,7 +97,7 @@ const WalkingPerson = ({
     <div
       ref={ref}
       className="absolute top-0 left-0 pointer-events-none"
-      style={{ width: size, height: size + 10, zIndex: 15 }}
+      style={{ width: size, height: size + 10, zIndex: 5 }}
     >
       <div
         className="flex justify-center"

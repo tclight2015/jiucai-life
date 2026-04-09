@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import coinPileImg from "@/assets/coin-pile.png";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CoinPileProps {
   amountU: number;
   amountJiucai: number;
+  isLoading?: boolean;
 }
 
-const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
+const CoinPile = ({ amountU, amountJiucai, isLoading }: CoinPileProps) => {
+  const { t } = useTranslation();
   const [displayU, setDisplayU] = useState(0);
   const [displayJiucai, setDisplayJiucai] = useState(0);
 
@@ -40,7 +44,7 @@ const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
       >
         <img
           src={coinPileImg}
-          alt="金幣堆"
+          alt="coin pile"
           width={280}
           height={180}
           className="w-52 md:w-72 h-auto drop-shadow-2xl"
@@ -48,18 +52,25 @@ const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
       </div>
 
       <div className="mt-4 text-center">
-        <p className="text-sm md:text-base text-muted-foreground mb-1">目前累計獎金</p>
-        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
-          <span className="coin-amount">
-            <span className="coin-number">{displayU.toLocaleString()}</span>
-            <span className="coin-unit">U</span>
-          </span>
-          <span className="text-muted-foreground font-light">·</span>
-          <span className="coin-amount">
-            <span className="coin-number">{displayJiucai.toLocaleString()}</span>
-            <span className="coin-unit">JIUCAI</span>
-          </span>
-        </div>
+        <p className="text-sm md:text-base text-muted-foreground mb-1">{t("coinPile.label")}</p>
+        {isLoading ? (
+          <div className="flex items-center justify-center gap-3">
+            <Skeleton className="h-8 w-28 rounded-lg" />
+            <Skeleton className="h-8 w-32 rounded-lg" />
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
+            <span className="coin-amount">
+              <span className="coin-number">{displayU.toLocaleString()}</span>
+              <span className="coin-unit">U</span>
+            </span>
+            <span className="text-muted-foreground font-light">·</span>
+            <span className="coin-amount">
+              <span className="coin-number">{displayJiucai.toLocaleString()}</span>
+              <span className="coin-unit">JIUCAI</span>
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
