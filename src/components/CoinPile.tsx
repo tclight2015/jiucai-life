@@ -4,9 +4,10 @@ import coinPileImg from "@/assets/coin-pile.png";
 interface CoinPileProps {
   amountU: number;
   amountJiucai: number;
+  poolLabel?: string;
 }
 
-const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
+const CoinPile = ({ amountU, amountJiucai, poolLabel = "目前累計獎金" }: CoinPileProps) => {
   const [displayU, setDisplayU] = useState(0);
   const [displayJiucai, setDisplayJiucai] = useState(0);
 
@@ -48,7 +49,7 @@ const CoinPile = ({ amountU, amountJiucai }: CoinPileProps) => {
       </div>
 
       <div className="mt-4 text-center">
-        <p className="text-sm md:text-base text-muted-foreground mb-1">目前累計獎金</p>
+        <p className="text-sm md:text-base text-muted-foreground mb-1">{poolLabel}</p>
         <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
           <span className="coin-amount">
             <span className="coin-number">{displayU.toLocaleString()}</span>

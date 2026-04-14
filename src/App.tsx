@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { LangProvider } from "./contexts/LangContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -15,12 +16,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <LangProvider>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </LangProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
