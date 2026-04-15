@@ -63,22 +63,25 @@ def create_app():
         ).limit(10).all()
         return jsonify([a.to_dict() for a in items])
 
-    # Auto-create tables on first deploy (no migration needed for fresh DB)
-    with app.app_context():
-        try:
-            db.create_all()
-        except Exception as e:
-            import logging
-            logging.getLogger(__name__).warning("db.create_all failed: %s", e)
+    # Init DB and scheduler in background — don't block gunicorn startup
+    import threading
+    import logging
 
-    # Start scheduler (only in main process, not reloader)
-    if os.getenv("FLASK_ENV") != "test":
-        try:
-            from tasks.scheduler import init_scheduler
-            init_scheduler(app)
-        except Exception as e:
-            import logging
-            logging.getLogger(__name__).warning("Scheduler init failed: %s", e)
+    def _background_init():
+        with app.app_context():
+            try:
+                db.create_all()
+                logging.getLogger(__name__).info("db.create_all OK")
+            except Exception as e:
+                logging.getLogger(__name__).warning("db.create_all failed: %s", e)
+            if os.getenv("FLASK_ENV") != "test":
+                try:
+                    from tasks.scheduler import init_scheduler
+                    init_scheduler(app)
+                except Exception as e:
+                    logging.getLogger(__name__).warning("Scheduler init failed: %s", e)
+
+    threading.Thread(target=_background_init, daemon=True).start()
 
     return app
 
