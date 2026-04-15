@@ -54,10 +54,22 @@ def create_app():
         ).limit(10).all()
         return jsonify([a.to_dict() for a in items])
 
+    # Auto-create tables on first deploy (no migration needed for fresh DB)
+    with app.app_context():
+        try:
+            db.create_all()
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).warning("db.create_all failed: %s", e)
+
     # Start scheduler (only in main process, not reloader)
     if os.getenv("FLASK_ENV") != "test":
-        from tasks.scheduler import init_scheduler
-        init_scheduler(app)
+        try:
+            from tasks.scheduler import init_scheduler
+            init_scheduler(app)
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).warning("Scheduler init failed: %s", e)
 
     return app
 
