@@ -4,6 +4,7 @@ from models import Pool
 pool_bp = Blueprint("pool", __name__, url_prefix="/api/pool")
 
 
+@pool_bp.get("")
 @pool_bp.get("/")
 def get_pool():
     """Current prize pool balances — used by homepage CoinPile."""
