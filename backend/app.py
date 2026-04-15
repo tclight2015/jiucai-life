@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -29,7 +30,15 @@ def create_app():
     # Extensions
     db.init_app(app)
     Migrate(app, db)
-    CORS(app, origins=["https://jiucai.life", "http://localhost:8080", "http://localhost:5173"])
+    CORS(app, origins=[
+        "https://jiucai.life",
+        "https://jiucai-life-production.up.railway.app",
+        "http://localhost:8080",
+        "http://localhost:5173",
+        # Allow all railway.app subdomains for staging/preview
+        re.compile(r"https://.*\.railway\.app"),
+        re.compile(r"https://.*\.up\.railway\.app"),
+    ])
 
     # Blueprints
     app.register_blueprint(pool_bp)
