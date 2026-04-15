@@ -14,14 +14,14 @@ def create_app():
     app = Flask(__name__)
 
     # Config
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-        "DATABASE_URL", "sqlite:///jiucai_dev.db"
-    )
-    # Railway gives postgres:// URLs; SQLAlchemy needs postgresql://
-    if app.config["SQLALCHEMY_DATABASE_URI"].startswith("postgres://"):
-        app.config["SQLALCHEMY_DATABASE_URI"] = app.config[
-            "SQLALCHEMY_DATABASE_URI"
-        ].replace("postgres://", "postgresql://", 1)
+    db_url = os.getenv("DATABASE_URL", "sqlite:///jiucai_dev.db")
+    # Railway gives postgres:// — SQLAlchemy needs postgresql://
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+    # Use pg8000 driver (pure Python, no libpq required)
+    if db_url.startswith("postgresql://") and "+pg8000" not in db_url:
+        db_url = db_url.replace("postgresql://", "postgresql+pg8000://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-change-me")
