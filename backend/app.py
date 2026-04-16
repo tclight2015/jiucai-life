@@ -9,6 +9,7 @@ load_dotenv()
 
 from models import db
 from routes import pool_bp, wallet_bp, lottery_bp, claim_bp, comment_bp, admin_bp
+from bot import bot_bp
 
 
 def create_app():
@@ -47,6 +48,7 @@ def create_app():
     app.register_blueprint(claim_bp)
     app.register_blueprint(comment_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(bot_bp)
 
     # Health check
     @app.get("/health")
