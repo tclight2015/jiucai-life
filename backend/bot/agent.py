@@ -222,7 +222,7 @@ def handle_message(chat_id: str, user_text: str) -> str:
         history = _conversations[chat_id]
 
     response = client.messages.create(
-        model="claude-opus-4-6",
+        model="claude-haiku-4-5",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
         tools=TOOLS,
@@ -249,7 +249,7 @@ def handle_message(chat_id: str, user_text: str) -> str:
         history.append({"role": "user", "content": tool_results})
 
         response = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-haiku-4-5",
             max_tokens=2048,
             system=SYSTEM_PROMPT,
             tools=TOOLS,
