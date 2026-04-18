@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/PageHeader";
+import { useLang } from "@/contexts/LangContext";
 
-const LAUNCH_ESTIMATE = "2026 年第三季";
 const POWERBALL_URL = "https://www.powerball.com/winning-numbers";
 
 const PROB_TABLE = [
@@ -13,46 +13,109 @@ const PROB_TABLE = [
   { week: 52, tickets: 52, pct: "8.97%" },
 ];
 
+const zhContent = {
+  pageTitle: "韭菜樂透",
+  heroTitle: "韭菜樂透",
+  launchLabel: "⏳ 預計上線：2026 年第三季",
+  launchDesc: "韭菜樂透將於平台穩定運行後正式啟動。屆時每位持幣會員將自動獲得號碼券，每週累積一張，持幣越久號碼越多，中獎機率越高。",
+  launchNote: "獎金視屆時獎池狀況決定，保留調整機制。",
+  howTitle: "🎯 怎麼玩",
+  howSteps: [
+    "持有 $JIUCAI 即自動加入，無需另外報名。每週系統自動發一組 5 個號碼（1–69）給每位持幣會員。",
+    "每週六（美東時間）Powerball 官方開獎後，系統自動抓取本期 5 顆主球號碼，與所有會員累積的號碼券逐一比對。",
+    "對中 3 顆以上即獲獎，Telegram 自動通知並打幣到錢包。",
+    "每組號碼對完可保留、累積越多、重複週週對。每年 12 月 31 日統一清空，次年重新開始。持幣越久，手上號碼張數越多。",
+  ],
+  probTitle: "📈 中獎機率隨週數增加",
+  probCols: ["持幣週數", "累積號碼張數", "每週中獎機率"],
+  probWeek: (w: number) => `第 ${w} 週`,
+  probTicket: (t: number) => `${t} 張`,
+  probFooter: "持幣滿一整年，每週中獎機率接近 9%。越早加入優勢越大。",
+  ticketTitle: "🃏 號碼樣式預覽",
+  ticketHeader: "🎰 韭菜樂透 — 第 18 週",
+  ticketCount: "累積 18 張",
+  ticketMore: "… 還有 15 組",
+  ticketFooter: "上線後可在個人資料區查看所有累積號碼",
+  prizeTitle: "💰 獎金說明",
+  prize1: "獎金金額上線後決定，平台保留調整機制。",
+  prize2: "不定時額外加碼（年終加碼、里程碑加碼），加碼時提前公告。",
+  prize3: "中獎後系統自動打幣到錢包，Telegram 同步通知，鏈上可查。",
+  fairTitle: "🔒 為什麼說完全公正？",
+  fairDesc: "韭菜樂透不自行開獎，直接沿用美國 Powerball 官方結果。Powerball 每週六開獎，公開透明，任何人都能在官網查驗。我們只是對號入座，沒有任何操縱空間。",
+  fairLink: "→ Powerball 官方開獎紀錄 ↗",
+  sellWarning: (
+    <>⚠️ 賣光 $JIUCAI 後，樂透券<strong>停止發放新券</strong>，但已累積的號碼保留。買回來後立即恢復每週發號。</>
+  ),
+  backBtn: "回分頁列表",
+  walletBtn: "連結錢包",
+};
+
+const enContent = {
+  pageTitle: "JIUCAI Lottery",
+  heroTitle: "JIUCAI Lottery",
+  launchLabel: "⏳ Launching: Q3 2026",
+  launchDesc: "JIUCAI Lottery will go live once the platform stabilizes. Every holder is automatically enrolled — one ticket set issued per week, the longer you hold the more you accumulate, and the higher your odds.",
+  launchNote: "Prize amounts TBD at launch. Platform reserves the right to adjust.",
+  howTitle: "🎯 How It Works",
+  howSteps: [
+    "Hold $JIUCAI and you're automatically enrolled — no sign-up needed. Every week the system issues one set of 5 numbers (1–69) to each holding member.",
+    "Every Saturday (ET), after the official Powerball draw, the system fetches the 5 winning balls and matches them against every accumulated ticket set across all members.",
+    "Match 3 or more numbers and you win. Telegram notifies you instantly and USDT is sent straight to your wallet.",
+    "Matched tickets are kept — the more you accumulate, the more shots you get every week. All tickets reset on December 31st each year and fresh sets start rolling in January. The longer you hold, the bigger your stack.",
+  ],
+  probTitle: "📈 Odds Grow Every Week You Hold",
+  probCols: ["Weeks Held", "Tickets Accumulated", "Weekly Win Odds"],
+  probWeek: (w: number) => `Week ${w}`,
+  probTicket: (t: number) => `${t} set${t > 1 ? "s" : ""}`,
+  probFooter: "Hold for a full year and your weekly win odds approach 9%. Earlier is always better.",
+  ticketTitle: "🃏 Sample Ticket Preview",
+  ticketHeader: "🎰 JIUCAI Lottery — Week 18",
+  ticketCount: "18 sets accumulated",
+  ticketMore: "… and 15 more",
+  ticketFooter: "Once live, view all your accumulated tickets in your profile.",
+  prizeTitle: "💰 Prize Info",
+  prize1: "Prize amounts will be announced at launch. Platform reserves the right to adjust.",
+  prize2: "Occasional bonus top-ups (year-end, milestone events) — announced in advance.",
+  prize3: "Winnings are sent automatically to your wallet. Telegram notified. Verifiable on-chain.",
+  fairTitle: "🔒 Why Is It Provably Fair?",
+  fairDesc: "JIUCAI Lottery doesn't run its own draw — we use the official US Powerball results. Powerball draws every Saturday, publicly and transparently. Anyone can verify on their website. We just match numbers — zero room for manipulation.",
+  fairLink: "→ Official Powerball Results ↗",
+  sellWarning: (
+    <>⚠️ If you sell all your $JIUCAI, new ticket sets <strong>stop issuing</strong>, but your accumulated sets are preserved. Buy back in and issuance resumes immediately.</>
+  ),
+  backBtn: "Back to Menu",
+  walletBtn: "Connect Wallet",
+};
+
 export default function Jackpot() {
   const navigate = useNavigate();
+  const { lang } = useLang();
+  const c = lang === "zh" ? zhContent : enContent;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <PageHeader pageTitle="韭菜樂透" />
+      <PageHeader pageTitle={c.pageTitle} />
 
       <div className="max-w-2xl mx-auto px-6 py-10 space-y-10">
 
         {/* Hero */}
         <div className="text-center space-y-2">
           <div className="text-5xl">🎰</div>
-          <h1 className="text-3xl font-black">韭菜樂透</h1>
+          <h1 className="text-3xl font-black">{c.heroTitle}</h1>
         </div>
 
         {/* Coming soon banner */}
         <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-5 text-center space-y-2">
-          <div className="font-bold text-lg text-primary">
-            ⏳ 預計上線：{LAUNCH_ESTIMATE}
-          </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            韭菜樂透將於平台穩定運行後正式啟動。
-            屆時每位持幣會員將自動獲得號碼券，每週累積一張，
-            持幣越久號碼越多，中獎機率越高。
-          </p>
-          <p className="text-muted-foreground text-xs">
-            獎金視屆時獎池狀況決定，保留調整機制。
-          </p>
+          <div className="font-bold text-lg text-primary">{c.launchLabel}</div>
+          <p className="text-muted-foreground text-sm leading-relaxed">{c.launchDesc}</p>
+          <p className="text-muted-foreground text-xs">{c.launchNote}</p>
         </div>
 
         {/* How it works */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold border-b border-border pb-2">🎯 怎麼玩</h2>
+          <h2 className="text-xl font-bold border-b border-border pb-2">{c.howTitle}</h2>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-            {[
-              "持有 $JIUCAI 即自動加入，無需另外報名。每週系統自動發一組 5 個號碼（1–69）給每位持幣會員。",
-              "每週六（美東時間）Powerball 官方開獎後，系統自動抓取本期 5 顆主球號碼，與所有會員累積的號碼券逐一比對。",
-              "對中 3 顆以上即獲獎，Telegram 自動通知並打幣到錢包。",
-              "每組號碼對完可保留、累積越多、重複週週對。每年 12 月 31 日統一清空，次年重新開始。持幣越久，手上號碼張數越多。",
-            ].map((text, i) => (
+            {c.howSteps.map((text, i) => (
               <div key={i} className="flex gap-3">
                 <span className="font-bold text-primary shrink-0">{i + 1}.</span>
                 <span>{text}</span>
@@ -63,16 +126,14 @@ export default function Jackpot() {
 
         {/* Probability */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold border-b border-border pb-2">
-            📈 中獎機率隨週數增加
-          </h2>
+          <h2 className="text-xl font-bold border-b border-border pb-2">{c.probTitle}</h2>
           <div className="rounded-xl overflow-hidden border border-border">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-muted text-muted-foreground text-xs uppercase">
-                  <th className="px-4 py-3 text-left">持幣週數</th>
-                  <th className="px-4 py-3 text-center">累積號碼張數</th>
-                  <th className="px-4 py-3 text-right">每週中獎機率</th>
+                  <th className="px-4 py-3 text-left">{c.probCols[0]}</th>
+                  <th className="px-4 py-3 text-center">{c.probCols[1]}</th>
+                  <th className="px-4 py-3 text-right">{c.probCols[2]}</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,26 +146,24 @@ export default function Jackpot() {
                         : "text-muted-foreground"
                     }`}
                   >
-                    <td className="px-4 py-3">第 {row.week} 週</td>
-                    <td className="px-4 py-3 text-center">{row.tickets} 張</td>
+                    <td className="px-4 py-3">{c.probWeek(row.week)}</td>
+                    <td className="px-4 py-3 text-center">{c.probTicket(row.tickets)}</td>
                     <td className="px-4 py-3 text-right">{row.pct}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-muted-foreground text-xs text-center">
-            持幣滿一整年，每週中獎機率接近 9%。越早加入優勢越大。
-          </p>
+          <p className="text-muted-foreground text-xs text-center">{c.probFooter}</p>
         </section>
 
         {/* Sample ticket */}
         <section className="space-y-4">
-          <h2 className="text-xl font-bold border-b border-border pb-2">🃏 號碼樣式預覽</h2>
+          <h2 className="text-xl font-bold border-b border-border pb-2">{c.ticketTitle}</h2>
           <div className="rounded-xl border border-border bg-muted/30 p-5 space-y-4">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>🎰 韭菜樂透 — 第 18 週</span>
-              <span>累積 18 張</span>
+              <span>{c.ticketHeader}</span>
+              <span>{c.ticketCount}</span>
             </div>
             <div className="space-y-3">
               {[
@@ -127,51 +186,41 @@ export default function Jackpot() {
                   </div>
                 </div>
               ))}
-              <p className="text-muted-foreground text-xs pl-8">… 還有 15 組</p>
+              <p className="text-muted-foreground text-xs pl-8">{c.ticketMore}</p>
             </div>
-            <p className="text-muted-foreground text-xs">
-              上線後可在個人資料區查看所有累積號碼
-            </p>
+            <p className="text-muted-foreground text-xs">{c.ticketFooter}</p>
           </div>
         </section>
 
         {/* Prize */}
         <section className="space-y-3">
-          <h2 className="text-xl font-bold border-b border-border pb-2">💰 獎金說明</h2>
+          <h2 className="text-xl font-bold border-b border-border pb-2">{c.prizeTitle}</h2>
           <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
-            <p>獎金金額上線後決定，平台保留調整機制。</p>
-            <p>不定時額外加碼（年終加碼、里程碑加碼），加碼時提前公告。</p>
-            <p className="text-foreground font-medium">
-              中獎後系統自動打幣到錢包，Telegram 同步通知，鏈上可查。
-            </p>
+            <p>{c.prize1}</p>
+            <p>{c.prize2}</p>
+            <p className="text-foreground font-medium">{c.prize3}</p>
           </div>
         </section>
 
         {/* Transparency */}
         <section className="rounded-xl border border-border bg-muted/20 p-5 space-y-3">
-          <h3 className="font-bold">🔒 為什麼說完全公正？</h3>
+          <h3 className="font-bold">{c.fairTitle}</h3>
           <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
-            <p>
-              韭菜樂透不自行開獎，直接沿用美國 Powerball 官方結果。
-              Powerball 每週六開獎，公開透明，任何人都能在官網查驗。
-              我們只是對號入座，沒有任何操縱空間。
-            </p>
+            <p>{c.fairDesc}</p>
             <a
               href={POWERBALL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
             >
-              → Powerball 官方開獎紀錄 ↗
+              {c.fairLink}
             </a>
           </div>
         </section>
 
         {/* Sell warning */}
         <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-muted-foreground text-center">
-          ⚠️ 賣光 $JIUCAI 後，樂透券
-          <span className="text-foreground font-semibold">停止發放新券</span>，
-          但已累積的號碼保留。買回來後立即恢復每週發號。
+          {c.sellWarning}
         </div>
 
         {/* Bottom nav — 所有頁面統一 */}
@@ -181,13 +230,13 @@ export default function Jackpot() {
             className="flex-1 rounded-full"
             onClick={() => navigate("/")}
           >
-            回分頁列表
+            {c.backBtn}
           </Button>
           <Button
             className="flex-1 rounded-full"
             onClick={() => navigate("/")}
           >
-            連結錢包
+            {c.walletBtn}
           </Button>
         </div>
       </div>
