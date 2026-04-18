@@ -128,9 +128,20 @@ const About = () => {
         <p className="text-2xl font-bold mt-10">"EVERYONE WHO GOT RUGGED IS HERE."</p>
       )}
 
-      <div className="mt-16 flex justify-center">
-        <Button className="rounded-full px-8" onClick={() => navigate('/')}>
-          {lang === "zh" ? "回到分頁列表" : "Back to Menu"}
+      {/* Bottom nav — 所有頁面統一 */}
+      <div className="mt-16 border-t border-border pt-6 flex gap-3">
+        <Button
+          variant="outline"
+          className="flex-1 rounded-full"
+          onClick={() => navigate("/")}
+        >
+          {lang === "zh" ? "回分頁列表" : "Back to Menu"}
+        </Button>
+        <Button
+          className="flex-1 rounded-full"
+          onClick={() => navigate("/")}
+        >
+          {lang === "zh" ? "連結錢包" : "Connect Wallet"}
         </Button>
       </div>
       </div>

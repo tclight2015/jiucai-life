@@ -26,9 +26,6 @@ export default function Jackpot() {
         <div className="text-center space-y-2">
           <div className="text-5xl">🎰</div>
           <h1 className="text-3xl font-black">韭菜樂透</h1>
-          <p className="text-muted-foreground text-sm">
-            對標 Powerball · 持幣自動累積號碼 · 完全公正透明
-          </p>
         </div>
 
         {/* Coming soon banner */}
@@ -54,7 +51,7 @@ export default function Jackpot() {
               "持有 $JIUCAI 即自動加入，無需另外報名。每週系統自動發一組 5 個號碼（1–69）給每位持幣會員。",
               "每週六（美東時間）Powerball 官方開獎後，系統自動抓取本期 5 顆主球號碼，與所有會員累積的號碼券逐一比對。",
               "對中 3 顆以上即獲獎，Telegram 自動通知並打幣到錢包。",
-              "號碼不消失，每年 12 月 31 日統一清空，元旦重新開始。持幣越久，手上號碼張數越多。",
+              "每組號碼對完可保留、累積越多、重複週週對。每年 12 月 31 日統一清空，次年重新開始。持幣越久，手上號碼張數越多。",
             ].map((text, i) => (
               <div key={i} className="flex gap-3">
                 <span className="font-bold text-primary shrink-0">{i + 1}.</span>
@@ -142,7 +139,7 @@ export default function Jackpot() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold border-b border-border pb-2">💰 獎金說明</h2>
           <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
-            <p>獎金金額視屆時獎池狀況決定，平台保留調整機制，不預先承諾固定數字。</p>
+            <p>獎金金額上線後決定，平台保留調整機制。</p>
             <p>不定時額外加碼（年終加碼、里程碑加碼），加碼時提前公告。</p>
             <p className="text-foreground font-medium">
               中獎後系統自動打幣到錢包，Telegram 同步通知，鏈上可查。
@@ -177,24 +174,21 @@ export default function Jackpot() {
           但已累積的號碼保留。買回來後立即恢復每週發號。
         </div>
 
-        {/* CTA */}
-        <div className="text-center space-y-3 pt-2">
-          <p className="text-muted-foreground text-sm">上線前，先持幣等開張</p>
+        {/* Bottom nav — 所有頁面統一 */}
+        <div className="border-t border-border pt-6 flex gap-3">
           <Button
+            variant="outline"
+            className="flex-1 rounded-full"
             onClick={() => navigate("/")}
-            className="rounded-full px-8"
           >
-            回首頁連結錢包
+            回分頁列表
           </Button>
-        </div>
-
-        <div className="border-t border-border pt-6 text-center">
-          <button
+          <Button
+            className="flex-1 rounded-full"
             onClick={() => navigate("/")}
-            className="text-muted-foreground hover:text-foreground text-sm transition-colors"
           >
-            ← 返回首頁
-          </button>
+            連結錢包
+          </Button>
         </div>
       </div>
     </div>
