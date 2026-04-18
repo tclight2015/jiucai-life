@@ -7,6 +7,7 @@ from .card import UserCard
 from .comment import Comment
 from .announcement import Announcement
 from .referral import Referral
+from .jackpot import PowerballDraw, JiucaiTicket
 
 __all__ = [
     "db",
@@ -19,4 +20,6 @@ __all__ = [
     "Comment",
     "Announcement",
     "Referral",
+    "PowerballDraw",
+    "JiucaiTicket",
 ]

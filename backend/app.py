@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from models import db
-from routes import pool_bp, wallet_bp, lottery_bp, claim_bp, comment_bp, admin_bp
+from routes import pool_bp, wallet_bp, lottery_bp, claim_bp, comment_bp, admin_bp, jackpot_bp
 from bot import bot_bp
 
 
@@ -48,6 +48,7 @@ def create_app():
     app.register_blueprint(claim_bp)
     app.register_blueprint(comment_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(jackpot_bp)
     app.register_blueprint(bot_bp)
 
     # Health check
