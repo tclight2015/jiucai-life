@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLang } from "@/contexts/LangContext";
+import PageHeader from "@/components/PageHeader";
 
 const zhContent = {
   title: "韭菜宣言",
@@ -74,30 +75,9 @@ const About = () => {
   const c = lang === "zh" ? zhContent : enContent;
 
   return (
-    <div className="min-h-screen bg-background text-foreground px-6 py-16 max-w-2xl mx-auto">
-      {/* Language toggle */}
-      <div className="flex justify-end mb-8 gap-2">
-        <button
-          onClick={() => setLang("zh")}
-          className={`px-3 py-1 text-sm rounded border transition-colors ${
-            lang === "zh"
-              ? "bg-foreground text-background border-foreground"
-              : "border-border text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          中文
-        </button>
-        <button
-          onClick={() => setLang("en")}
-          className={`px-3 py-1 text-sm rounded border transition-colors ${
-            lang === "en"
-              ? "bg-foreground text-background border-foreground"
-              : "border-border text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          EN
-        </button>
-      </div>
+    <div className="min-h-screen bg-background text-foreground">
+      <PageHeader pageTitle="韭菜宣言" />
+      <div className="px-6 py-10 max-w-2xl mx-auto">
 
       {/* Hero */}
       <h1 className="text-4xl font-bold mb-4">{c.title}</h1>
@@ -152,6 +132,7 @@ const About = () => {
         <Button className="rounded-full px-8" onClick={() => navigate('/')}>
           {lang === "zh" ? "回到分頁列表" : "Back to Menu"}
         </Button>
+      </div>
       </div>
     </div>
   );
